@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class PersonalCompetition<T extends Athlete> extends Competition {
-	
+
 	//private String PCtype;
 	private ArrayList<T> allAthletes ;
 
@@ -12,53 +12,52 @@ public class PersonalCompetition<T extends Athlete> extends Competition {
 		allAthletes = new ArrayList<T>();
 	}
 
-//sort by runner/jumpping high >> return sort array type Runner/Jummping high :)
-	public ArrayList<T> BubbleSort(T t) {
+	//sort by runner/jumpping high >> return sort array type Runner/Jummping high :)
+	@Override
+	public ArrayList<String> treeWinnersCountry(){
+
+		ArrayList<String> nameOfWinningCountrys = new ArrayList<String>(3);
 		
 		if (allAthletes.isEmpty()) {
 			return null;
 		}
 		
-		if (t instanceof Runner ) {
-			ArrayList<Runner>allRunners = (ArrayList<Runner>)allAthletes;
-            
-			for (int i = 0; i < allRunners.size()-1; i++) {
-				
-				for (int j = 0; j < allRunners.size()-1; j++) {
-					
-					if (allRunners.get(j).getRunningSpeed() > allRunners.get(j+1).getRunningSpeed() ) {
-											
-					Runner tempRunner = allRunners.get(j);
-					allRunners.set(j, allRunners.get(j+1));
-					allRunners.set(j+1, tempRunner);
-					}
-				}
-			}
-			return (ArrayList<T>) allRunners;
-		}
-		
-		else if(t instanceof Runner ) {
-			ArrayList<Runner>allJumpping = (ArrayList<Runner>)allAthletes;
-            
-			for (int i = 0; i < allJumpping.size()-1; i++) {
-				
-				for (int j = 0; j < allJumpping.size()-1; j++) {
-					
-					if (allJumpping.get(j).getRunningSpeed() > allJumpping.get(j+1).getRunningSpeed() ) {
-											
-					Runner tempRunner = allJumpping.get(j);
-					allJumpping.set(j, allJumpping.get(j+1));
-					allJumpping.set(j+1, tempRunner);
-					}
-				}
-			}
-			return (ArrayList<T>) allJumpping;
-		}
-		
-		else return null;
-		
-	}
+			for (int i = 0; i < allAthletes.size()-1; i++) {
 
+				for (int j = 0; j < allAthletes.size()-1; j++) {
+
+					if (allAthletes.get(j).getScore() < allAthletes.get(j+1).getScore() ) {
+
+						Athlete tempAthlete = allAthletes.get(j);
+						allAthletes.set(j, allAthletes.get(j+1));
+						allAthletes.set(j+1, (T) tempAthlete);
+					}
+				}
+			
+			for (int k = 0; k< 3; k++) {
+				nameOfWinningCountrys.add(allAthletes.get(k).getCountry());
+			}
+
+		}
+
+
+
+		return nameOfWinningCountrys;
+
+	}
 	
-	
+/*	public ArrayList<String> treeWinnersAthletes(){
+		ArrayList<String> treeWinnerAthletes = new ArrayList<String>(3);
+		
+		
+		for (int i = 0; i < 3; i++) {
+			treeWinnerAthletes.add(allAthletes.get(i).getCountry());
+			
+		}
+		return treeWinnerAthletes; 
+
+	}*/
+
+
+
 }

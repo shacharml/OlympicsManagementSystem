@@ -2,11 +2,14 @@ package model;
 
 public class HighJumper extends Athlete {
 
-	private double highJump;
+	//private int score;
 	
-	public HighJumper(String name, String country, double highJump) {
-		super(name, country);
-		this.highJump = highJump;
+	public HighJumper(String name, String country, int score) {
+		super(name, country,score);
+		//this.score = score;
 	}
+
+	
+	
 
 }

@@ -2,23 +2,16 @@ package model;
 
 public class Runner extends Athlete{
 	
-	private int runningSpeed;
+//	private int score;
 	
-	public Runner(int runningSpeed , String name , String country) {
-		super(name , country);
-		this.runningSpeed = runningSpeed;
+	
+	public Runner(int score , String name , String country) {
+		super(name , country,score);
+		//this.score = score;
 		
 	}
 
-	public int getRunningSpeed() {
-		return runningSpeed;
-	}
 
-	public void setRunningSpeed(int runningSpeed) {
-		this.runningSpeed = runningSpeed;
-	}
 
-	
-	
 	
 }

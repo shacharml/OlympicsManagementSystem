@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public abstract class Competition {
 	
@@ -43,7 +44,10 @@ public abstract class Competition {
 		
 		
 		}
-		
+	
+	
+	
+	public abstract ArrayList<String> treeWinnersCountry();		
 	
 		
 		
