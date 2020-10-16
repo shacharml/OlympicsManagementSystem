@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -170,6 +171,11 @@ public class GUI implements UIinterface {
 				vbAddCompatition.setPadding(new Insets(10));
 				vbAddCompatition.setAlignment(Pos.TOP_LEFT);
 
+				ScrollPane spShowAll = new ScrollPane();
+				spShowAll.setContent(allRefereAndAllStadium);
+				spShowAll.setMaxWidth(600); 
+				
+				
 				Label lbType = new Label("choose type of compatition :");
 				ComboBox<String> cmType = new ComboBox<String>();
 				cmType.getItems().addAll("Run", "High Jump");
@@ -191,10 +197,12 @@ public class GUI implements UIinterface {
 					}
 				});
 
-				vbAddCompatition.getChildren().addAll(lbType, cmType, lbRefere, txRefere, lbStadium, txStadium,
+				vbAddCompatition.getChildren().addAll(lbType, cmType, lbRefere, txRefere, lbStadium, txStadium,spShowAll,
 						btAddComp);
 
-				stageAddCompetition.setScene(new Scene(vbAddCompatition));
+				
+				
+				stageAddCompetition.setScene(new Scene(vbAddCompatition,600,600));
 				stageAddCompetition.show();
 
 			}
