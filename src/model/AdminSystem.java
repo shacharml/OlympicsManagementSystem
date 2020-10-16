@@ -39,6 +39,20 @@ public class AdminSystem {
 		for(SystemEventListener l : listeners)
 		  l.addAthleteToModelEvent();
 	}
+
+	public void showAllRefereAndStadiums() {
+		 
+		String showAll = olympics.showAllRefereAndStadiums();
+		fireShowAllRefereAndStadiumsEvent(showAll);
+	}
+
+	private void fireShowAllRefereAndStadiumsEvent(String showAll) {
+		for(SystemEventListener l : listeners)
+			  l.showAllRefereAndStadiumsUModelEvent(showAll);
+		
+	}
+
+	
 	
 	
 	

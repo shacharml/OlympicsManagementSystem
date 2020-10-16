@@ -15,4 +15,6 @@ public interface SystemEventListener {
 	  void RemoveReferesToModelEvent();
 	  void RemoveCountryToModelEvent();
 	  void RemoveStadiumsToModelEvent();
+	  
+	  void showAllRefereAndStadiumsUModelEvent(String showAll);
 }

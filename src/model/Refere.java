@@ -25,5 +25,11 @@ public class Refere {
 		return sportJugement;
 	}
 
+	@Override
+	//shachar ,israel , runners
+	public String toString() {
+		return  name + ", " + country + ", " + sportJugement ;
+	}
+
 
 }

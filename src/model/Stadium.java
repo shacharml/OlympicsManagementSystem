@@ -24,6 +24,11 @@ public class Stadium {
 	public int getNumOfSeats() {
 		return numOfSeats;
 	}
+
+	@Override
+	public String toString() {
+		return  name + ", Location=" + location + ", Num of Seats=" + numOfSeats + "]";
+	}
 	
 
 }

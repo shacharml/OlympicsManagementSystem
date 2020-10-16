@@ -21,6 +21,7 @@ public interface UIinterface {
 	  
 	  ArrayList<String> treeCountrysWinning();
 	void registerListener(ManagementSystemController managementSystemControllew);
+	void showAllRefereAndStadiums(String showAll);
 	  
 	
 	

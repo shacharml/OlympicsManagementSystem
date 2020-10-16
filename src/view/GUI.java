@@ -35,9 +35,9 @@ public class GUI implements UIinterface{
 
 	private AthleteType running , highJumpping, both;
 	
+	private Label allRefereAndAllStadium = new Label();
 	
 
-	
 	private AthleteType[] typeAthlete = {running ,highJumpping, both} ;
 
 	public GUI(Stage theStage) {
@@ -49,6 +49,18 @@ public class GUI implements UIinterface{
 		vbRoots.setPadding(new Insets(10));
 		vbRoots.setAlignment(Pos.TOP_LEFT);
 
+		
+		Button btShowAllRefereStadium = new Button();
+		btShowAllRefereStadium.setVisible(false);
+		btShowAllRefereStadium.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent action) {
+				for(SystemUIEventListener l : allListeners)
+					l.showAllRefereAndStadiumsUIEvent();
+			}
+		});
+		
+		
 		Button btCreatOlympics = new Button("Creat an olympics");
 		Button btAddAthlete = new Button("Add athlete");
 		//Button btAddTeam = new Button("Ädd team");
@@ -151,13 +163,8 @@ public class GUI implements UIinterface{
 		btAddCompetition.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
-				
-				
-				
-				
-				
-				
-				
+
+				btShowAllRefereStadium.fire();
 				Stage stageAddCompetition =new Stage();
 				stageAddCompetition.setTitle("add Competition :");
 			
@@ -170,11 +177,17 @@ public class GUI implements UIinterface{
 				ComboBox<String> cmType = new ComboBox<String>();
 				cmType.getItems().addAll("Run","High Jump");
 				
+				Label lbRefere = new Label("choose Index of Refere :");
+				TextField txRefere = new TextField();
+				
+				Label lbStadium = new Label("choose Index of Stadium :");
+				TextField txStadium = new TextField();
 				
 				
 				
+				vbAddCompatition.getChildren().addAll(lbType,cmType,lbRefere,txRefere,lbStadium,txStadium);
 				
-				stageAddCompetition.setScene(new Scene(vbRoots));
+				stageAddCompetition.setScene(new Scene(vbAddCompatition));
 				stageAddCompetition.show();
 				
 				
@@ -288,6 +301,16 @@ public class GUI implements UIinterface{
 	public void addAthlete() {
 		JOptionPane.showMessageDialog(null, " add an athlete ");
 		
+		
+	}
+
+	@Override
+	public void showAllRefereAndStadiums(String showAll) {
+		
+		allRefereAndAllStadium.setText(showAll);
+		Stage AllAll  = new Stage();
+		AllAll.setScene(new Scene(allRefereAndAllStadium));
+		AllAll.show();
 		
 	}
 

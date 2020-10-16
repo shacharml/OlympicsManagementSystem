@@ -22,4 +22,6 @@ public interface SystemUIEventListener {
 	  void RemoveCountryToUIEvent();
 	  void RemoveStadiumsToUIEvent();
 
+	void showAllRefereAndStadiumsUIEvent();
+
 }

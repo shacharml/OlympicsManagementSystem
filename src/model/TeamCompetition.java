@@ -7,7 +7,7 @@ public class TeamCompetition extends Competition{
 	//private String PCtype;
 	private ArrayList<Team<Athlete>> allTeams ;
 
-	public TeamCompetition(Refere refere, Stadium stadium, competitionType type) {
+	public TeamCompetition(Refere refere, Stadium stadium, String type) {
 		super(refere, stadium, type);
 		allTeams = new ArrayList<Team<Athlete>>();
 	}

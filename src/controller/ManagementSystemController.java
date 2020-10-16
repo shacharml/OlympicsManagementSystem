@@ -153,4 +153,18 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 		
 	}
 
+
+
+	@Override
+	public void showAllRefereAndStadiumsUIEvent() {
+		adminSystem.showAllRefereAndStadiums();
+		
+	}
+
+	@Override
+	public void showAllRefereAndStadiumsUModelEvent(String showAll) {
+		systemView.showAllRefereAndStadiums(showAll);
+		
+	}
+
 }

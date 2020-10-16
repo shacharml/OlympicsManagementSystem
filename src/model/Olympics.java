@@ -198,4 +198,21 @@ public class Olympics {
 
 	}
 
+	public String showAllRefereAndStadiums() {
+		String str ="-------All the Referes :-------/n";
+		
+		for (int i = 0; i <allReferes.size(); i++) {
+			str += (i+1) +")" + allReferes.get(i).toString()+"/n";
+		}
+		
+		str +="/n-------All the Stadiums :-------/n";
+		for (int i = 0; i <allStadiums.size(); i++) {
+			str += (i+1) +")" + allStadiums.get(i).toString()+"/n";
+	
+		}
+		
+		return str;
+		
+	}
+
 }
