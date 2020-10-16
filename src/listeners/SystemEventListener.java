@@ -2,6 +2,7 @@ package listeners;
 
 public interface SystemEventListener {
 	
+	void createOlympicModelEvent(String startDate, String endDate);
 	
 	void addAthleteToModelEvent();
 	void addTeamToModelEvent();
@@ -10,4 +11,8 @@ public interface SystemEventListener {
 	void addRefereToModelEvent();
 	void showAllTheWinnersToModelEvent();
 
+	  void RemoveCompititionToModelEvent();
+	  void RemoveReferesToModelEvent();
+	  void RemoveCountryToModelEvent();
+	  void RemoveStadiumsToModelEvent();
 }

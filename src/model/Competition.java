@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class Competition {
 	
-	public enum competitionType {running , highJumpping};
+	public enum competitionType {running , highJumpping, both};
 	private competitionType type;
 	private Refere refere;
 	private Stadium stadium;
@@ -26,10 +26,13 @@ public abstract class Competition {
 		this.refere = refere;
 		this.stadium = stadium;
 		this.type =type;
-		
-	}
+		}
 	
-	public String getDtf() {
+	
+	
+	public abstract ArrayList<String> treeWinnersCountry();	
+	
+	/*public String getDtf() {
 		LocalDateTime now = LocalDateTime.now();
 		return dtf.format(now);
 	}
@@ -43,11 +46,11 @@ public abstract class Competition {
 		printW.close();
 		
 		
-		}
+		}*/
 	
 	
 	
-	public abstract ArrayList<String> treeWinnersCountry();		
+		
 	
 		
 		

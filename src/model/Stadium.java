@@ -13,4 +13,17 @@ public class Stadium {
 		this.numOfSeats = numOfSeats;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public int getNumOfSeats() {
+		return numOfSeats;
+	}
+	
+
 }

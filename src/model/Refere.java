@@ -12,4 +12,18 @@ public class Refere {
 		this.name = name;
 		this.sportJugement = sportJugement;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getSportJugement() {
+		return sportJugement;
+	}
+
+
 }
