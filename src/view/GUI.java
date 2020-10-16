@@ -6,7 +6,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
@@ -41,14 +45,21 @@ public class GUI implements UIinterface {
 
 	private AthleteType[] typeAthlete = { running, highJumpping, both };
 
-	public GUI(Stage theStage) {
+	public GUI(Stage theStage) throws FileNotFoundException {
 
+		FileInputStream input = new FileInputStream("C:\\Users\\shach\\git\\OlympicsManagementSystem\\olympic-rings.png");
+        Image image = new Image(input);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(170);
+        imageView.setFitWidth(230);
+		
+		
 		theStage.setTitle("--Menu--");
 
 		VBox vbRoots = new VBox();
 		vbRoots.setSpacing(10);
 		vbRoots.setPadding(new Insets(10));
-		vbRoots.setAlignment(Pos.TOP_LEFT);
+		vbRoots.setAlignment(Pos.TOP_CENTER);
 
 		Button btShowAllRefereStadium = new Button();
 		btShowAllRefereStadium.setVisible(false);
@@ -208,10 +219,11 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		vbRoots.getChildren().addAll(btCreatOlympics, btAddAthlete, btAddCompetition, btAddStadium, btAddRefere,
+		vbRoots.getChildren().addAll(imageView,btCreatOlympics, btAddAthlete, btAddCompetition, btAddStadium, btAddRefere,
 				btRemoveAthlete, btRemoveCompetition, btRemoveStadium, btRemoveRefere, btEndOlympics);
-		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
-		theStage.setScene(new Scene(vbRoots, 500, 400));
+		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
+		
+		theStage.setScene(new Scene(vbRoots, 300, 550));
 		theStage.show();
 
 	}
@@ -292,9 +304,9 @@ public class GUI implements UIinterface {
 	public void showAllRefereAndStadiums(String showAll) {
 
 		allRefereAndAllStadium.setText(showAll);
-		Stage AllAll = new Stage();
+		/*Stage AllAll = new Stage();
 		AllAll.setScene(new Scene(allRefereAndAllStadium));
-		AllAll.show();
+		AllAll.show();*/
 
 	}
 
