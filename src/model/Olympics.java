@@ -114,6 +114,7 @@ public class Olympics {
 		allAthletes.add(athlete);
 	}
 
+	//TODO need to work on this!!
 	public void AddAtheleteToTeamInCountry(Athlete athlete) {
 		String country = athlete.getCountry();
 		ArrayList<String> Indexes ;

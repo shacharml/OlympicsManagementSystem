@@ -25,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import listeners.SystemUIEventListener;
 import model.Athlete.AthleteType;
+import model.Refere;
 
 public class GUI implements UIinterface{
 
@@ -33,6 +34,8 @@ public class GUI implements UIinterface{
 	private String[] allCountrys = {"Israel" , "Brazil"} ;
 
 	private AthleteType running , highJumpping, both;
+	
+	
 
 	
 	private AthleteType[] typeAthlete = {running ,highJumpping, both} ;
@@ -148,14 +151,31 @@ public class GUI implements UIinterface{
 		btAddCompetition.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
+				
+				
+				
+				
+				
+				
+				
 				Stage stageAddCompetition =new Stage();
 				stageAddCompetition.setTitle("add Competition :");
 			
-				VBox vbRoots = new VBox();
-				vbRoots.setSpacing(10);
-				vbRoots.setPadding(new Insets(10));
-				vbRoots.setAlignment(Pos.TOP_LEFT);
+				VBox vbAddCompatition = new VBox();
+				vbAddCompatition.setSpacing(10);
+				vbAddCompatition.setPadding(new Insets(10));
+				vbAddCompatition.setAlignment(Pos.TOP_LEFT);
 				
+				Label lbType = new Label("choose type of compatition :");
+				ComboBox<String> cmType = new ComboBox<String>();
+				cmType.getItems().addAll("Run","High Jump");
+				
+				
+				
+				
+				
+				stageAddCompetition.setScene(new Scene(vbRoots));
+				stageAddCompetition.show();
 				
 				
 			

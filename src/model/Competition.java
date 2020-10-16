@@ -1,16 +1,13 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public abstract class Competition {
 	
-	public enum competitionType {running , highJumpping, both};
-	private competitionType type;
+	
+	private String type;
 	private Refere refere;
 	private Stadium stadium;
 	
@@ -21,7 +18,7 @@ public abstract class Competition {
 	final String COMPETITION = "Competition_";
 	
 	
-	public Competition(Refere refere, Stadium stadium , competitionType type) {
+	public Competition(Refere refere, Stadium stadium , String type) {
 		
 		this.refere = refere;
 		this.stadium = stadium;
