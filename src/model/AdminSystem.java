@@ -16,6 +16,7 @@ public class AdminSystem {
 	}
 	
 	public void createOlypics(LocalDate startDate, LocalDate endDate) {
+		//TODO need to check if endDate more late then StartDate mabye Excepcion
 		olympics =new Olympics( startDate.toString(), endDate.toString());
 		fireCreateOlympicEvent(startDate.toString(), endDate.toString());
 	}	
