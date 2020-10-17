@@ -13,7 +13,10 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.crypto.SealedObject;
 import javax.swing.JOptionPane;
@@ -21,6 +24,8 @@ import javax.swing.JOptionPane;
 import controller.ManagementSystemController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -39,16 +44,14 @@ import model.Refere;
 public class GUI implements UIinterface {
 
 	private Vector<SystemUIEventListener> allListeners = new Vector<SystemUIEventListener>();
-
-	private String[] allCountrys = { "Israel", "Brazil" };
-
-	// private AthleteType running, highJumpping, both;
-
+	private ObservableList<String> allCountrys = Stream.of(Locale.getISOCountries())
+			.map(locales -> new Locale("", locales)).map(Locale::getDisplayCountry)
+			.collect(Collectors.toCollection(FXCollections::observableArrayList));
+	// ComboBox<String> cb = new ComboBox<>(allCountrys);
 	private Label allRefereAndAllStadium = new Label();
 	private Label allAthletes = new Label();
 	private Button btShowAllAthletes = new Button();
 	private Button btShowAllRefereStadium = new Button();
-
 	private String[] typeAthlete = { "running", "highJumpping", "both" };
 
 	public GUI(Stage theStage) throws FileNotFoundException {
@@ -87,13 +90,13 @@ public class GUI implements UIinterface {
 
 		Button btCreatOlympics = new Button("Creat an olympics");
 		Button btAddAthlete = new Button("Add athlete");
-		// Button btAddTeam = new Button("Ädd team");
+		Button btAddCoutry = new Button("Ädd Country");
 		Button btAddCompetition = new Button("Add competition");
 		Button btAddStadium = new Button("Add Stadium");
 		Button btAddRefere = new Button("Add Refere");
 
 		Button btRemoveAthlete = new Button("Remove Athlete");
-		// Button btRemoveCompetition = new Button("Remove Competition");
+		Button btShowAllOlympic = new Button("Show All Olympic");
 		Button btRemoveStadium = new Button("Remove Stadium");
 		Button btRemoveRefere = new Button("Remove Refere");
 
@@ -311,11 +314,11 @@ public class GUI implements UIinterface {
 				TextField tfNameRefere = new TextField();
 				tfNameRefere.setMaxWidth(100);
 
-				Label lbcontry = new Label("insert the country of Athlete : ");
+				Label lbcontry = new Label("insert the country of Refere : ");
 				ComboBox<String> cmCountry = new ComboBox<String>();
 				cmCountry.getItems().addAll(allCountrys);
 
-				Label lbType = new Label("insert the Type of Athlete : ");
+				Label lbType = new Label("insert the juging Type of Refere : ");
 				ComboBox<String> cmTypeOfjuging = new ComboBox<String>();
 				cmTypeOfjuging.getItems().addAll(typeAthlete);
 
@@ -470,17 +473,57 @@ public class GUI implements UIinterface {
 		btEndOlympics.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
-				for(SystemUIEventListener l : allListeners)
-				   l.showAllTheWinnersUIEvent();
+				for (SystemUIEventListener l : allListeners)
+					l.showAllTheWinnersUIEvent();
 			}
 		});
-		
-		
-		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddAthlete, btAddCompetition, btAddStadium,
-				btAddRefere, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics);
+
+		btAddCoutry.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent action) {
+
+				Stage stageAddCountry = new Stage();
+				stageAddCountry.setTitle("Add Country");
+
+				VBox vbAddCountry = new VBox();
+				vbAddCountry.setSpacing(10);
+				vbAddCountry.setPadding(new Insets(10));
+				vbAddCountry.setAlignment(Pos.TOP_CENTER);
+
+				Label lbAddCountry = new Label("Choose the country you want to add olimpics :");
+				ComboBox<String> cb = new ComboBox<>(allCountrys);
+
+				Button btAddCo = new Button("Add Country !");
+				btAddCo.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent action) {
+						for (SystemUIEventListener l : allListeners)
+							l.addCountryToUI(cb.getValue());
+					}
+				});
+
+				vbAddCountry.getChildren().addAll(lbAddCountry, cb, btAddCo);
+				stageAddCountry.setScene(new Scene(vbAddCountry));
+				stageAddCountry.show();
+
+			}
+		});
+
+		btShowAllOlympic.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent action) {
+				for (SystemUIEventListener l : allListeners)
+					l.ShowAllOlimpicToUI();
+			}
+		});
+
+		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete, btAddCompetition,
+				btAddStadium, btAddRefere, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics,
+				btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
 
-		theStage.setScene(new Scene(vbRoots, 300, 550));
+		theStage.setScene(new Scene(vbRoots, 300, 600));
 		theStage.show();
 
 	}
@@ -499,8 +542,7 @@ public class GUI implements UIinterface {
 
 	@Override
 	public void addCountry() {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(null, "the country was added");
 	}
 
 	@Override
@@ -514,7 +556,7 @@ public class GUI implements UIinterface {
 		JOptionPane.showMessageDialog(null, " add an athlete ");
 
 	}
-	
+
 	@Override
 	public ArrayList<String> treeCountrysWinning() {
 		// TODO Auto-generated method stub
@@ -536,12 +578,6 @@ public class GUI implements UIinterface {
 	@Override
 	public void RemoveRefere() {
 		btShowAllRefereStadium.fire();
-
-	}
-
-	@Override
-	public void RemoveCountry() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -587,6 +623,15 @@ public class GUI implements UIinterface {
 		Label lbWinners = new Label(theWinners);
 		stagetheWinners.setScene(new Scene(lbWinners));
 		stagetheWinners.show();
+	}
+
+	@Override
+	public void showAllOlimpics(String allOlimpic) {
+		Stage stageAllOlimpic = new Stage();
+		Label lbAllOlimpic = new Label(allOlimpic);
+		stageAllOlimpic.setScene(new Scene(lbAllOlimpic));
+		stageAllOlimpic.show();
+
 	}
 
 }

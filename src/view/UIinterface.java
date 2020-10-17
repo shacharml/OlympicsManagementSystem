@@ -16,15 +16,11 @@ public interface UIinterface {
 
 	void addReferes(Refere refere);
 
-	void addCountry();
-
 	void addStadiums(String stadium);
 
 	void RemoveCompitition();
 
 	void RemoveRefere();
-
-	void RemoveCountry();
 
 	void removeAthlete();
 
@@ -39,5 +35,9 @@ public interface UIinterface {
 	void showAllAthletes(String allAthletes);
 
 	void showAllTheWinners(String theWinners);
+
+	void addCountry();
+
+	void showAllOlimpics(String allOlimpic);
 
 }

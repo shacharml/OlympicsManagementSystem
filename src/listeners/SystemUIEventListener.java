@@ -29,6 +29,10 @@ public interface SystemUIEventListener {
 
 	void RemoveRefereToUIEvent(int indexRefere);
 
+	void addCountryToUI(String countryName);
+
+	void ShowAllOlimpicToUI();
+
 	
 
 }

@@ -20,7 +20,7 @@ public class Olympics {
 		allReferes = new ArrayList<Refere>();
 		allStadiums = new ArrayList<Stadium>();
 		allAthletes = new ArrayList<Athlete>();
-
+		allCountrys= new ArrayList<Country>();
 	}
 
 	public Competition addCompitition(String type, String competitionType, int indexRefere, int indexStadium) {
@@ -219,6 +219,39 @@ public class Olympics {
 		}
 
 		return str;
+	}
+
+	
+	public String showAllCountrys() {
+		String str = "-------All the countrys :-------\n";
+
+		for (int i = 0; i < allCountrys.size(); i++) {
+			str += (i + 1) + ")" + allCountrys.get(i).toString() + "\n";
+		}
+
+		return str;
+	}
+	
+	public String showAllCopetition() {
+		String str = "-------All the competition :-------\n";
+
+		for (int i = 0; i < allComptitions.size(); i++) {
+			str += (i + 1) + ")" + allComptitions.get(i).toString() + "\n";
+		}
+
+		return str;
+	}
+	
+	
+	public String showAllOlimpic() {
+		String AllOlimpic = "Olimpic : \n Start Date : " +startDate + "\n Ending Date : " +endDate +"\n";
+		
+		AllOlimpic += showAllRefereAndStadiums();
+		AllOlimpic += "\n\n" +showAllCopetition();
+		AllOlimpic += "\n\n" +showAllAthletes();
+		AllOlimpic += "\n\n" +showAllCountrys();
+
+		return AllOlimpic;
 	}
 
 }

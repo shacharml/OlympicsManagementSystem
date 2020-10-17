@@ -16,11 +16,6 @@ public class Country {
 		allTeams.add(team);
 	}
 
-	
-	
-	
-	
-
 
 	public String getName() {
 		return name;
@@ -34,6 +29,12 @@ public class Country {
 	public void addMedals() {
 		this.totalMedals++;
 	}
+	@Override
+	public String toString() {
+		return "Country [name=" + name + ", totalMedals=" + totalMedals + "\n , allTeams=" + allTeams + "]";
+	}
+
+	
 
 
 }

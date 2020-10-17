@@ -9,10 +9,10 @@ public abstract class Competition {
 	private Refere refere;
 	private Stadium stadium;
 
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd");
+	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd");
 
-	final String TXT = ".txt";
-	final String COMPETITION = "Competition_";
+	//final String TXT = ".txt";
+	//final String COMPETITION = "Competition_";
 
 	public Competition(Refere refere, Stadium stadium, String type) {
 
@@ -25,7 +25,7 @@ public abstract class Competition {
 
 	@Override
 	public String toString() {
-		return "Competition :" + type + ", refere=" + refere + ", stadium=" + stadium ;
+		return "Competition :" + type + ", refere=" + refere + ", stadium=" + stadium+"\n" ;
 	}
 
 	

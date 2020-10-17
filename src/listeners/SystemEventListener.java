@@ -24,6 +24,10 @@ public interface SystemEventListener {
 
 	void showAllAthletesModelEvent(String allAthletes);
 
+	void addCountryToModelEvent();
+
+	void showAllOlimpicsToModelEvent(String allOlimpic);
+
 
 	
 }

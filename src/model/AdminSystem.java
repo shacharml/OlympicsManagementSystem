@@ -154,6 +154,32 @@ public class AdminSystem {
 		
 	}
 
+	public void addCountry(String countryName) {
+		
+		Country country = new Country(countryName);
+		olympics.addCountry(country);
+		fireAddCountryEvent();
+		
+	}
+
+	private void fireAddCountryEvent() {
+		for(SystemEventListener l : listeners)
+			  l.addCountryToModelEvent();
+		
+	}
+
+	public void showAllOlimpic() {
+		String allOlimpic = olympics.showAllOlimpic();
+		fireShowAllOlimpicEvent(allOlimpic);
+		
+	}
+
+	private void fireShowAllOlimpicEvent(String allOlimpic) {
+		for(SystemEventListener l : listeners)
+			  l.showAllOlimpicsToModelEvent(allOlimpic);
+		
+	}
+
 	
 	
 	

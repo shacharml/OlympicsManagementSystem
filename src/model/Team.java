@@ -11,7 +11,15 @@ public class Team<T extends Athlete>{
 	public Team( int outCome,String country) {
 		allAthletes = new ArrayList<T>();
 		this.country = country;
-		this.outCome = outCome;
+		this.outCome = sumOfScoresAthlete();
+	}
+
+	private int sumOfScoresAthlete() {
+		int outCome=0;
+		for (int i = 0; i < allAthletes.size(); i++) {
+			outCome += allAthletes.get(i).getScore();
+		}
+		return outCome;
 	}
 
 	public void addAthleteToTeam(T athlete ) {
@@ -26,6 +34,13 @@ public class Team<T extends Athlete>{
 	public String getCountry() {
 		return country;
 	}
+
+	@Override
+	public String toString() {
+		return "Team [allAthletes=" + allAthletes + ", country=" + country + ", outCome=" + outCome + "]\n";
+	}
+	
+	
 
 
 }

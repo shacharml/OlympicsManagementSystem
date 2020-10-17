@@ -203,4 +203,28 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 		
 	}
 
+	@Override
+	public void addCountryToUI(String countryName) {
+		adminSystem.addCountry(countryName);
+		
+	}
+
+	@Override
+	public void addCountryToModelEvent() {
+		systemView.addCountry();
+		
+	}
+
+	@Override
+	public void ShowAllOlimpicToUI() {
+		adminSystem.showAllOlimpic();
+		
+	}
+
+	@Override
+	public void showAllOlimpicsToModelEvent(String allOlimpic) {
+		systemView.showAllOlimpics(allOlimpic);
+		
+	}
+
 }
