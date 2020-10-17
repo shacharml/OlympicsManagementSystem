@@ -2,14 +2,16 @@ package model;
 
 import java.util.ArrayList;
 
-public class PersonalCompetition<T extends Athlete> extends Competition {
+public class PersonalCompetition extends Competition{//<T extends Athlete> extends Competition {
 
 	//private String PCtype;
-	private ArrayList<T> allAthletes ;
-
-	public PersonalCompetition(Refere refere, Stadium stadium, String type) {
+	//private ArrayList<T> allAthletes ;
+	
+     private ArrayList<Athlete> allAthletes;
+	
+	public PersonalCompetition(Refere refere, Stadium stadium, compatitionType type) {
 		super(refere, stadium, type);
-		allAthletes = new ArrayList<T>();
+		allAthletes = new ArrayList<Athlete>();
 	}
 
 	//sort by runner/jumpping high >> return sort array type Runner/Jummping high :)
@@ -30,7 +32,7 @@ public class PersonalCompetition<T extends Athlete> extends Competition {
 
 						Athlete tempAthlete = allAthletes.get(j);
 						allAthletes.set(j, allAthletes.get(j+1));
-						allAthletes.set(j+1, (T) tempAthlete);
+						allAthletes.set(j+1, tempAthlete);
 					}
 				}
 			

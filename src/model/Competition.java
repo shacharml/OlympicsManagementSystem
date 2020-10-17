@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 public abstract class Competition {
 
-	private String type;
+	protected enum compatitionType {PersonalCompatition , TeamCompetition}
+	//private String type;
+	private compatitionType type;
+		
 	private Refere refere;
 	private Stadium stadium;
 
@@ -14,7 +17,7 @@ public abstract class Competition {
 	//final String TXT = ".txt";
 	//final String COMPETITION = "Competition_";
 
-	public Competition(Refere refere, Stadium stadium, String type) {
+	public Competition(Refere refere, Stadium stadium, compatitionType type) {
 
 		this.refere = refere;
 		this.stadium = stadium;
@@ -26,6 +29,10 @@ public abstract class Competition {
 	@Override
 	public String toString() {
 		return "Competition :" + type + ", refere=" + refere + ", stadium=" + stadium+"\n" ;
+	}
+
+	public compatitionType getType() {
+		return type;
 	}
 
 	
