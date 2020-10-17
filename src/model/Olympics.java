@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import model.Athlete.AthleteType;
-
 public class Olympics {
 	private String startDate;
 	private String endDate;
@@ -25,27 +23,42 @@ public class Olympics {
 
 	}
 
-	public void addCompitition(Competition competition) {
-		allComptitions.add(competition);
-	}
+	public Competition addCompitition(String type, String competitionType, int indexRefere, int indexStadium) {
 
-	/*
-	 * public String setStartDate(int day, int mounth, int year ) { return day + "/"
-	 * + mounth + "/" + year; } public String setEndDate(int day, int mounth, int
-	 * year ) { return day + "/" + mounth + "/" + year; }
-	 */
+		Competition competition;
+
+		if (competitionType.equalsIgnoreCase("Personal Competition")) {
+			if (type.equalsIgnoreCase("Run")) {
+				competition = new PersonalCompetition<Runner>(allReferes.get(indexRefere - 1),
+						allStadiums.get(indexStadium - 1), competitionType);
+			} else {
+				competition = new PersonalCompetition<HighJumper>(allReferes.get(indexRefere - 1),
+						allStadiums.get(indexStadium - 1), competitionType);
+			}
+
+		} else {// Team Copetition
+			if (type.equalsIgnoreCase("Run")) {
+				competition = new TeamCompetition<Runner>(allReferes.get(indexRefere - 1),
+						allStadiums.get(indexStadium - 1), competitionType);
+			} else {
+				competition = new TeamCompetition<HighJumper>(allReferes.get(indexRefere - 1),
+						allStadiums.get(indexStadium - 1), competitionType);
+
+			}
+
+		}
+		allComptitions.add(competition);
+		return competition;
+	}
 
 	public void addReferes(Refere refere) {
 		allReferes.add(refere);
 	}
 
-	public void removeReferes(String nameRefere) {
-		for (int i = 0; i < allReferes.size(); i++) {
-			if (allReferes.get(i).getName().equalsIgnoreCase(nameRefere)) {
-				allReferes.remove(i);
-				return;
-			}
-		}
+	public void removeReferes(int indexRefere) {
+
+		allReferes.remove(indexRefere);
+
 	}
 
 	public void addCountry(Country country) {
@@ -66,19 +79,17 @@ public class Olympics {
 
 	}
 
-	public void removeStadiums(String nameStadium) {
-		for (int i = 0; i < allStadiums.size(); i++) {
-			if (allStadiums.get(i).getName().equalsIgnoreCase(nameStadium)) {
-				allStadiums.remove(i);
-				return;
-			}
-		}
+	public void removeStadiums(int indexStadium) {
+
+		allStadiums.remove(indexStadium - 1);
+
 	}
 
 	public void addMedalsToCountrys() {
 
 		for (int i = 0; i < allComptitions.size(); i++) {
 
+			//tempWinning : 3 winners countrys in competition num i // israel brazil lebanon
 			ArrayList<String> tempWinning = allComptitions.get(i).treeWinnersCountry();
 
 			for (int j = 0; j < tempWinning.size(); j++) {
@@ -101,12 +112,12 @@ public class Olympics {
 		}
 	}
 
-	public void addAthlete(String name, String country, AthleteType type, int score) {
+	public void addAthlete(String name, String country, String type, int score) {
 
 		Athlete athlete;
-		if (type.equals(AthleteType.running)) {
+		if (type.equals("running")) {
 			athlete = new Runner(score, name, type, country);
-		} else if (type.equals(AthleteType.highJumpping)) {
+		} else if (type.equals("highJumpping")) {
 			athlete = new HighJumper(name, country, type, score);
 		} else {
 			athlete = new RunnerAndJumper(name, country, type, score);
@@ -114,33 +125,23 @@ public class Olympics {
 		allAthletes.add(athlete);
 	}
 
-	//TODO need to work on this!!
+	// TODO need to work on this!!
 	public void AddAtheleteToTeamInCountry(Athlete athlete) {
 		String country = athlete.getCountry();
-		ArrayList<String> Indexes ;
-		
+		ArrayList<String> Indexes;
+
 		if (athlete instanceof Runner) {
 			String sulot = indexOfRightTeam("Runner", country);
 			if (!sulot.equals("notFound")) {
 				Indexes = new ArrayList<String>(Arrays.asList(sulot.split(",")));
 				allCountrys.get(Integer.parseInt(Indexes.get(0))).getAllTeams().get(Integer.parseInt(Indexes.get(1)))
-				.addAthleteToTeam(athlete);
+						.addAthleteToTeam(athlete);
 			}
-		}else if (athlete instanceof HighJumper) {
+		} else if (athlete instanceof HighJumper) {
 			indexOfRightTeam("HighJumper", country);
-		}else {
-			indexOfRightTeam("RunnerAndJumper", country);	
+		} else {
+			indexOfRightTeam("RunnerAndJumper", country);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 
 	}
 
@@ -149,7 +150,7 @@ public class Olympics {
 			if (allCountrys.get(i).getName().equalsIgnoreCase(countryName)) {
 				for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
 					if (allCountrys.get(i).getAllTeams().get(j).getClass().getName().equals(className)) {
-						String st = i+","+j;
+						String st = i + "," + j;
 						return st;
 					}
 				}
@@ -160,14 +161,9 @@ public class Olympics {
 		return "notFound";
 	}
 
-	public void removeAthlete(String nameAthlete) {
-		for (int i = 0; i < allAthletes.size(); i++) {
-			if (allAthletes.get(i).getName().equalsIgnoreCase(nameAthlete)) {
-				allAthletes.remove(i);
-				return;
-			}
-		}
+	public void removeAthlete(int indexAthlete) {
 
+		allAthletes.remove(indexAthlete - 1);
 	}
 
 	public ArrayList<String> treeCountrysWinning() {
@@ -199,20 +195,30 @@ public class Olympics {
 	}
 
 	public String showAllRefereAndStadiums() {
-		String str ="-------All the Referes :-------\n";
-		
-		for (int i = 0; i <allReferes.size(); i++) {
-			str += (i+1) +")" + allReferes.get(i).toString()+"\n";
+		String str = "-------All the Referes :-------\n";
+
+		for (int i = 0; i < allReferes.size(); i++) {
+			str += (i + 1) + ")" + allReferes.get(i).toString() + "\n";
 		}
-		
-		str +="\n-------All the Stadiums :-------\n";
-		for (int i = 0; i <allStadiums.size(); i++) {
-			str += (i+1) +")" + allStadiums.get(i).toString()+"\n";
-	
+
+		str += "\n-------All the Stadiums :-------\n";
+		for (int i = 0; i < allStadiums.size(); i++) {
+			str += (i + 1) + ")" + allStadiums.get(i).toString() + "\n";
+
 		}
-		
+
 		return str;
-		
+
+	}
+
+	public String showAllAthletes() {
+		String str = "-------All the Athletes :-------\n";
+
+		for (int i = 0; i < allAthletes.size(); i++) {
+			str += (i + 1) + ")" + allAthletes.get(i).toString() + "\n";
+		}
+
+		return str;
 	}
 
 }

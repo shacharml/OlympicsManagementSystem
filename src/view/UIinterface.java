@@ -3,34 +3,41 @@ package view;
 import java.util.ArrayList;
 
 import controller.ManagementSystemController;
+import model.Competition;
+import model.Refere;
 
 public interface UIinterface {
-	
-	  void createOlympic(String startDate, String endDate);
-	  void addAthlete();
-	  void addCompitition();
-	  void addReferes();
-	  void addCountry();
-	  void addStadiums();
-	 
-	  void RemoveCompitition();
-	  void RemoveReferes();
-	  void RemoveCountry();
-	  void RemoveStadiums();
-	  
-	  
-	  ArrayList<String> treeCountrysWinning();
+
+	void createOlympic(String startDate, String endDate);
+
+	void addAthlete();
+
+	void addCompitition(Competition comp);
+
+	void addReferes(Refere refere);
+
+	void addCountry();
+
+	void addStadiums(String stadium);
+
+	void RemoveCompitition();
+
+	void RemoveRefere();
+
+	void RemoveCountry();
+
+	void removeAthlete();
+
+	void removeStadium();
+
+	ArrayList<String> treeCountrysWinning();
+
 	void registerListener(ManagementSystemController managementSystemControllew);
+
 	void showAllRefereAndStadiums(String showAll);
-	  
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	void showAllAthletes(String allAthletes);
+
+	void showAllTheWinners(String theWinners);
 
 }

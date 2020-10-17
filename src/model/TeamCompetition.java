@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class TeamCompetition extends Competition{
+public class TeamCompetition<T extends Athlete> extends Competition{
 
 	//private String PCtype;
 	private ArrayList<Team<Athlete>> allTeams ;

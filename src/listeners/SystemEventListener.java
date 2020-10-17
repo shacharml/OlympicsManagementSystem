@@ -1,20 +1,29 @@
 package listeners;
 
+import model.Competition;
+import model.Refere;
+
 public interface SystemEventListener {
 	
 	void createOlympicModelEvent(String startDate, String endDate);
 	
 	void addAthleteToModelEvent();
 	void addTeamToModelEvent();
-	void addCompetitionToModelEvent();
-	void addStadiumToModelEvent();
-	void addRefereToModelEvent();
-	void showAllTheWinnersToModelEvent();
+	void addCompetitionToModelEvent(Competition comp);
+	void addStadiumToModelEvent(String stadium);
+	void addRefereToModelEvent(Refere refere);
+	void showAllTheWinnersToModelEvent(String theWinners);
 
+	void RemoveAthleteToModelEvent();
 	  void RemoveCompititionToModelEvent();
-	  void RemoveReferesToModelEvent();
+	  void RemoveRefereToModelEvent();
 	  void RemoveCountryToModelEvent();
-	  void RemoveStadiumsToModelEvent();
+	  void RemoveStadiumToModelEvent();
 	  
 	  void showAllRefereAndStadiumsUModelEvent(String showAll);
+
+	void showAllAthletesModelEvent(String allAthletes);
+
+
+	
 }
