@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
+//import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import listeners.SystemUIEventListener;
 import model.Athlete.AthleteType;
-import model.Refere;
+//import model.Refere;
 
 public class GUI implements UIinterface {
 
@@ -47,7 +47,7 @@ public class GUI implements UIinterface {
 
 	public GUI(Stage theStage) throws FileNotFoundException {
 
-		FileInputStream input = new FileInputStream("C:\\Users\\shach\\git\\OlympicsManagementSystem\\olympic-rings.png");
+		FileInputStream input = new FileInputStream("C:\\Users\\Anetg\\git\\OlympicsManagementSystem\\olympic-rings.png");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(170);
