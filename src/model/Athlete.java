@@ -38,6 +38,11 @@ public class Athlete {
 	public String toString() {
 		return  name + ", country=" + country + ", score=" + score + ", type=" + type;
 	}
+
+
+	public String getType() {
+		return type;
+	}
 	
 	
 	

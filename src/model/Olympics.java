@@ -127,7 +127,46 @@ public class Olympics {
 
 	// TODO need to work on this!!
 	public void AddAtheleteToTeamInCountry(Athlete athlete) {
+
 		String country = athlete.getCountry();
+		
+		for (int i = 0; i < allCountrys.size(); i++) {
+			if (allCountrys.get(i).getName().equalsIgnoreCase(country)) {
+				
+				String athleteType = athlete.getType().toString();
+				
+				for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
+					
+					if (allCountrys.get(i).getAllTeams().get(j).getAllAthletes().getClass().getName()
+							.equalsIgnoreCase(athleteType)) {
+						
+					}
+				}
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
 		ArrayList<String> Indexes;
 
 		if (athlete instanceof Runner) {
@@ -221,7 +260,6 @@ public class Olympics {
 		return str;
 	}
 
-	
 	public String showAllCountrys() {
 		String str = "-------All the countrys :-------\n";
 
@@ -241,7 +279,6 @@ public class Olympics {
 
 		return str;
 	}
-	
 	
 	public String showAllOlimpic() {
 		String AllOlimpic = "Olimpic : \n Start Date : " +startDate + "\n Ending Date : " +endDate +"\n";

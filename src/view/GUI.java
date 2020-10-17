@@ -52,7 +52,7 @@ public class GUI implements UIinterface {
 	private Label allAthletes = new Label();
 	private Button btShowAllAthletes = new Button();
 	private Button btShowAllRefereStadium = new Button();
-	private String[] typeAthlete = { "running", "highJumpping", "both" };
+	private String[] typeAthlete = { "Runner", "HighJumper", "RunnerAndJumper" };
 
 	public GUI(Stage theStage) throws FileNotFoundException {
 
