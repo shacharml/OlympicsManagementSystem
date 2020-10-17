@@ -137,8 +137,8 @@ public class Olympics {
 				
 				for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
 					
-					if (allCountrys.get(i).getAllTeams().get(j).getAllAthletes().getClass().getName()
-							.equalsIgnoreCase(athleteType)) {
+					//if (allCountrys.get(i).getAllTeams().get(j).getAllAthletes().getClass().getName()
+						//	.equalsIgnoreCase(athleteType)) {
 						
 					}
 				}

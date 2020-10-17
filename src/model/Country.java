@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Country {
 	private String name;
 	private int totalMedals;
-	private ArrayList<Team<Athlete>>allTeams;
+	private ArrayList<Team>allTeams;
 
 	public Country(String name) {
 		this.totalMedals =0 ;
 		this.name = name;
-		allTeams= new ArrayList<Team<Athlete>>();
+		allTeams= new ArrayList<Team>();
 	}
-	public void addTeam(Team<Athlete> team) {
+	public void addTeam(Team team) {
 		allTeams.add(team);
 	}
 
@@ -23,7 +23,7 @@ public class Country {
 	public int getTotalMedals() {
 		return totalMedals;
 	}
-	public ArrayList<Team<Athlete>> getAllTeams() {
+	public ArrayList<Team> getAllTeams() {
 		return allTeams;
 	}
 	public void addMedals() {
