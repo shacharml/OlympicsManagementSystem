@@ -688,12 +688,10 @@ public class GUI implements UIinterface {
 		Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
 		ListView<Athlete> allAtletes = new ListView<Athlete>();
 	//	ObservableList<String> items = (ObservableList<String>) newArr ;
+		//show on the screen
 		ObservableList<Athlete> items = FXCollections.observableArrayList(newArr);
-		ObservableList<Athlete> selectItems = allAtletes.getSelectionModel().getSelectedItems();
-		for (Athlete athlete : selectItems ) {
-			selectAthletes.add(athlete);
-			
-		}
+		
+		
 		//ObservableList<String> items = FXCollections.observableArrayList("Cricket", "Chess", "Kabaddy", "Badminton",
 			//    "Football", "Golf", "CoCo", "car racing");
 		allAtletes.setItems(items);
@@ -705,6 +703,11 @@ public class GUI implements UIinterface {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
+				ObservableList<Athlete> selectItems = allAtletes.getSelectionModel().getSelectedItems();
+				for (Athlete athlete : selectItems ) {
+					selectAthletes.add(athlete);
+					
+				}
 				for (SystemUIEventListener l : allListeners)
 					
 					if (typeAthlete.equals(compatitionType.HighJumper.toString())) {
@@ -743,18 +746,19 @@ public class GUI implements UIinterface {
 				//("Cricket", "Chess", "Kabaddy", "Badminton", "Football", "Golf", "CoCo", "car racing");
 		allAtletes.setItems(items);
 		allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		ArrayList<Object> selectTeams = new ArrayList<Object>();
-		ObservableList<Team> selectItems = allAtletes.getSelectionModel().getSelectedItems();
-		for (Team teams : selectItems ) {
-			selectTeams.add(teams);
-			
-		}
+	
 
 		Button btselect = new Button(" Add Competition ");
 		btselect.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
+				ArrayList<Object> selectTeams = new ArrayList<Object>();
+				ObservableList<Team> selectItems = allAtletes.getSelectionModel().getSelectedItems();
+				for (Team teams : selectItems ) {
+					selectTeams.add(teams);
+					
+				}
 				
 				for (SystemUIEventListener l : allListeners)
 					

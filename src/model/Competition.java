@@ -9,8 +9,8 @@ public abstract class Competition {
 	//private String type;
 	private compatitionType type;
 		
-	private Refere refere;
-	private Stadium stadium;
+	protected Refere refere;
+	protected Stadium stadium;
 
 	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd");
 

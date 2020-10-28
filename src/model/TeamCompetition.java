@@ -46,5 +46,10 @@ public class TeamCompetition extends Competition{//<T extends Athlete> extends C
 		return treeWinnerCountry ;
 
 	}
+	@Override
+	public String toString() {
+		return "TeamCompetition [allTeams=" + allTeams + "]";
+	}
+	
 
 }

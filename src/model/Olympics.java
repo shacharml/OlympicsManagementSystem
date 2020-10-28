@@ -33,21 +33,34 @@ public class Olympics {
 		Competition competition;
 
 		if (competitionType.equals("Personal Competition")) {
-		competition = new PersonalCompetition(allReferes.get(indexRefere), allStadiums.get(indexStadium), type);
+			System.out.println("35");
+		competition = new PersonalCompetition(allReferes.get(indexRefere-1), allStadiums.get(indexStadium-1), type);
+		System.out.println(37);
 			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
 				//for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
 					Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
+					System.out.println(TeamOrAthlete);
 					if (TeamOrAthlete instanceof Athlete) {
 						Athlete at = (Athlete)TeamOrAthlete;
 						((PersonalCompetition)competition).addAthleteToCom(at);
 						
-					
-					
 				}
-
+    System.out.println(competition +"1" );
 			}
 		} else
-			competition = new TeamCompetition(allReferes.get(indexRefere), allStadiums.get(indexStadium), type);
+			competition = new TeamCompetition(allReferes.get(indexRefere-1), allStadiums.get(indexStadium-1), type);
+		for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
+			//for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
+				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
+				if (TeamOrAthlete instanceof Team) {
+					Team te = (Team)TeamOrAthlete;
+					((TeamCompetition)competition).addTeams(te);
+				
+			}
+
+		}
+		allComptitions.add(competition);
+		System.out.println(allComptitions+ "2");
 		return competition;
 		/*
 		 * if (type.equalsIgnoreCase("Run")) { competition = new
@@ -280,8 +293,11 @@ public class Olympics {
 		String str = "-------All the competition :-------\n";
 
 		for (int i = 0; i < allComptitions.size(); i++) {
-			str += (i + 1) + ")" + allComptitions.get(i).toString() + "\n";
-		}
+			if (allComptitions.get(i) instanceof PersonalCompetition) {
+			str +=	(i + 1) + ")"+ ((PersonalCompetition)allComptitions.get(i)).toString();
+			}
+			else 
+				str +=	(i + 1) + ")"+ ((TeamCompetition)allComptitions.get(i)).toString();		}
 
 		return str;
 	}
