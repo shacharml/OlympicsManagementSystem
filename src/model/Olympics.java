@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import model.Athlete.AthleteType;
+import model.Competition.compatitionType;
 
 public class Olympics {
 	private String startDate;
@@ -14,6 +15,7 @@ public class Olympics {
 	private ArrayList<Country> allCountrys;
 	private ArrayList<Stadium> allStadiums;
 	private ArrayList<Athlete> allAthletes;
+	private ArrayList<Team> allTeams ;
 
 	public Olympics(String startDate, String endDate) {
 		this.startDate = startDate;
@@ -22,30 +24,56 @@ public class Olympics {
 		allReferes = new ArrayList<Refere>();
 		allStadiums = new ArrayList<Stadium>();
 		allAthletes = new ArrayList<Athlete>();
-
+		allCountrys = new ArrayList<Country>();
+		allTeams = new ArrayList<Team>(); 
 	}
 
-	public void addCompitition(Competition competition) {
-		allComptitions.add(competition);
-	}
+	public Competition addCompitition(compatitionType type, String competitionType, int indexRefere, int indexStadium,ArrayList<Object>allAthlesOrAllTeams) {
 
-	/*
-	 * public String setStartDate(int day, int mounth, int year ) { return day + "/"
-	 * + mounth + "/" + year; } public String setEndDate(int day, int mounth, int
-	 * year ) { return day + "/" + mounth + "/" + year; }
-	 */
+		Competition competition;
+
+		if (competitionType.equals("Personal Competition")) {
+		competition = new PersonalCompetition(allReferes.get(indexRefere), allStadiums.get(indexStadium), type);
+			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
+				//for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
+					Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
+					if (TeamOrAthlete instanceof Athlete) {
+						Athlete at = (Athlete)TeamOrAthlete;
+						((PersonalCompetition)competition).addAthleteToCom(at);
+						
+					
+					
+				}
+
+			}
+		} else
+			competition = new TeamCompetition(allReferes.get(indexRefere), allStadiums.get(indexStadium), type);
+		return competition;
+		/*
+		 * if (type.equalsIgnoreCase("Run")) { competition = new
+		 * PersonalCompetition(allReferes.get(indexRefere - 1),
+		 * allStadiums.get(indexStadium - 1),compatitionType.Runner); } else {
+		 * competition = new PersonalCompetition(allReferes.get(indexRefere - 1),
+		 * allStadiums.get(indexStadium - 1), compatitionType.HighJumper); }
+		 * 
+		 * } else {// Team Copetition if (type.equalsIgnoreCase("Run")) { competition =
+		 * new TeamCompetition(allReferes.get(indexRefere - 1),
+		 * allStadiums.get(indexStadium - 1), compatitionType.Runner); } else {
+		 * competition = new TeamCompetition(allReferes.get(indexRefere - 1),
+		 * allStadiums.get(indexStadium - 1), compatitionType.HighJumper);
+		 * 
+		 * } } allComptitions.add(competition); return competition;
+		 */
+	}
 
 	public void addReferes(Refere refere) {
 		allReferes.add(refere);
 	}
 
-	public void removeReferes(String nameRefere) {
-		for (int i = 0; i < allReferes.size(); i++) {
-			if (allReferes.get(i).getName().equalsIgnoreCase(nameRefere)) {
-				allReferes.remove(i);
-				return;
-			}
-		}
+	public void removeReferes(int indexRefere) {
+
+		allReferes.remove(indexRefere);
+
 	}
 
 	public void addCountry(Country country) {
@@ -66,19 +94,18 @@ public class Olympics {
 
 	}
 
-	public void removeStadiums(String nameStadium) {
-		for (int i = 0; i < allStadiums.size(); i++) {
-			if (allStadiums.get(i).getName().equalsIgnoreCase(nameStadium)) {
-				allStadiums.remove(i);
-				return;
-			}
-		}
+	public void removeStadiums(int indexStadium) {
+
+		allStadiums.remove(indexStadium - 1);
+
 	}
 
 	public void addMedalsToCountrys() {
 
 		for (int i = 0; i < allComptitions.size(); i++) {
 
+			// tempWinning : 3 winners countrys in competition num i // israel brazil
+			// lebanon
 			ArrayList<String> tempWinning = allComptitions.get(i).treeWinnersCountry();
 
 			for (int j = 0; j < tempWinning.size(); j++) {
@@ -101,73 +128,87 @@ public class Olympics {
 		}
 	}
 
-	public void addAthlete(String name, String country, AthleteType type, int score) {
-
-		Athlete athlete;
-		if (type.equals(AthleteType.running)) {
-			athlete = new Runner(score, name, type, country);
-		} else if (type.equals(AthleteType.highJumpping)) {
-			athlete = new HighJumper(name, country, type, score);
-		} else {
-			athlete = new RunnerAndJumper(name, country, type, score);
-		}
-		allAthletes.add(athlete);
-	}
-
-	//TODO need to work on this!!
-	public void AddAtheleteToTeamInCountry(Athlete athlete) {
-		String country = athlete.getCountry();
-		ArrayList<String> Indexes ;
-		
-		if (athlete instanceof Runner) {
-			String sulot = indexOfRightTeam("Runner", country);
-			if (!sulot.equals("notFound")) {
-				Indexes = new ArrayList<String>(Arrays.asList(sulot.split(",")));
-				allCountrys.get(Integer.parseInt(Indexes.get(0))).getAllTeams().get(Integer.parseInt(Indexes.get(1)))
-				.addAthleteToTeam(athlete);
-			}
-		}else if (athlete instanceof HighJumper) {
-			indexOfRightTeam("HighJumper", country);
-		}else {
-			indexOfRightTeam("RunnerAndJumper", country);	
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-
-	}
-
-	public String indexOfRightTeam(String className, String countryName) {
+	/*
+	 * public void addAthlete(String name, String country, String type, int score) {
+	 * 
+	 * Athlete athlete; if (type.equals("running")) { athlete = new Runner(score,
+	 * name, type, country); } else if (type.equals("highJumpping")) { athlete = new
+	 * HighJumper(name, country, type, score); } else { athlete = new
+	 * RunnerAndJumper(name, country, type, score); } allAthletes.add(athlete); }
+	 */
+	// TODO need to work on this!!
+	public int findMyCountry(String cuontry) {
 		for (int i = 0; i < allCountrys.size(); i++) {
-			if (allCountrys.get(i).getName().equalsIgnoreCase(countryName)) {
-				for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
-					if (allCountrys.get(i).getAllTeams().get(j).getClass().getName().equals(className)) {
-						String st = i+","+j;
-						return st;
-					}
-				}
-
+			if (allCountrys.get(i).getName().equals(cuontry)) {
+				return i;
 			}
-
 		}
-		return "notFound";
+		return -1;
 	}
 
-	public void removeAthlete(String nameAthlete) {
-		for (int i = 0; i < allAthletes.size(); i++) {
-			if (allAthletes.get(i).getName().equalsIgnoreCase(nameAthlete)) {
-				allAthletes.remove(i);
+	public void addAthlete(Athlete athlete) {
+
+		allAthletes.add(athlete);
+
+		String country = athlete.getCountry();
+		AthleteType type = athlete.getType();
+		int indexCountry = findMyCountry(country);
+
+		if (indexCountry != -1) {
+
+			if (allCountrys.get(indexCountry).getAllTeams().isEmpty()) {
+				//type.equals(AthleteType.both)
+				if (athlete instanceof RunnerAndJumper) {
+					Team teamRun = new Team(country, AthleteType.Runner);
+					teamRun.addAthleteToTeam(athlete);
+					allCountrys.get(indexCountry).getAllTeams().add(teamRun);
+					allCountrys.get(indexCountry).getAllTeams().get(0).sumOfScoresAthlete();
+
+					Team teamJump = new Team(country, AthleteType.HighJumper);
+					teamJump.addAthleteToTeam(athlete);
+					allCountrys.get(indexCountry).getAllTeams().add(teamJump);
+					allCountrys.get(indexCountry).getAllTeams().get(1).sumOfScoresAthlete();
+				} else {
+
+					Team team = new Team(country, type);
+					team.addAthleteToTeam(athlete);
+					allCountrys.get(indexCountry).getAllTeams().add(team);
+					allCountrys.get(indexCountry).getAllTeams().get(0).sumOfScoresAthlete();
+				}
 				return;
 			}
+
+			for (int i = 0; i < allCountrys.get(indexCountry).getAllTeams().size(); i++) {
+				if (type.equals(AthleteType.both)) {
+
+					if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
+							.equals(AthleteType.HighJumper.toString())) {
+						allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
+						allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
+					}
+					if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
+							.equals(AthleteType.Runner.toString())) {
+						allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
+						allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
+					}
+					return;
+				}
+
+				else if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
+						.equals(type.toString())) {
+					allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
+					allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
+					return;
+				}
+			}
+
 		}
 
+	}
+
+	public void removeAthlete(int indexAthlete) {
+
+		allAthletes.remove(indexAthlete - 1);
 	}
 
 	public ArrayList<String> treeCountrysWinning() {
@@ -199,20 +240,83 @@ public class Olympics {
 	}
 
 	public String showAllRefereAndStadiums() {
-		String str ="-------All the Referes :-------\n";
-		
-		for (int i = 0; i <allReferes.size(); i++) {
-			str += (i+1) +")" + allReferes.get(i).toString()+"\n";
+		String str = "-------All the Referes :-------\n";
+
+		for (int i = 0; i < allReferes.size(); i++) {
+			str += (i + 1) + ")" + allReferes.get(i).toString() + "\n";
 		}
-		
-		str +="\n-------All the Stadiums :-------\n";
-		for (int i = 0; i <allStadiums.size(); i++) {
-			str += (i+1) +")" + allStadiums.get(i).toString()+"\n";
-	
+
+		str += "\n-------All the Stadiums :-------\n";
+		for (int i = 0; i < allStadiums.size(); i++) {
+			str += (i + 1) + ")" + allStadiums.get(i).toString() + "\n";
+
 		}
-		
+
 		return str;
-		
+
+	}
+
+	public String showAllAthletes() {
+		String str = "-------All the Athletes :-------\n";
+
+		for (int i = 0; i < allAthletes.size(); i++) {
+			str += (i + 1) + ")" + allAthletes.get(i).toString() + "\n";
+		}
+
+		return str;
+	}
+
+	public String showAllCountrys() {
+		String str = "-------All the countrys :-------\n";
+
+		for (int i = 0; i < allCountrys.size(); i++) {
+			str += (i + 1) + ")" + allCountrys.get(i).toString() + "\n";
+		}
+
+		return str;
+	}
+
+	public String showAllCopetition() {
+		String str = "-------All the competition :-------\n";
+
+		for (int i = 0; i < allComptitions.size(); i++) {
+			str += (i + 1) + ")" + allComptitions.get(i).toString() + "\n";
+		}
+
+		return str;
+	}
+
+	public String showAllOlimpic() {
+		String AllOlimpic = "Olimpic : \n Start Date : " + startDate + "\n Ending Date : " + endDate + "\n";
+
+		AllOlimpic += showAllRefereAndStadiums();
+		AllOlimpic += "\n\n" + showAllCopetition();
+		AllOlimpic += "\n\n" + showAllAthletes();
+		AllOlimpic += "\n\n" + showAllCountrys();
+
+		return AllOlimpic;
+	}
+
+
+	public ArrayList<Team> getArraySelectTeam() {
+
+		return getAllTeams();
+	}
+
+	public ArrayList<Team> getAllTeams() {
+		ArrayList<Team> allTeams =new ArrayList<Team>();
+		for (int i = 0; i < allCountrys.size(); i++) {
+			for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
+				allTeams.add(allCountrys.get(i).getAllTeams().get(j));
+			}
+		}
+		return allTeams;
+	}
+
+
+	public ArrayList<Athlete> getArraySelectAthlete() {
+
+		return allAthletes;
 	}
 
 }

@@ -2,19 +2,22 @@ package model;
 
 import java.util.ArrayList;
 
-public class PersonalCompetition<T extends Athlete> extends Competition {
+public class PersonalCompetition extends Competition{//<T extends Athlete> extends Competition {
 
 	//private String PCtype;
-	private ArrayList<T> allAthletes ;
-
-	public PersonalCompetition(Refere refere, Stadium stadium, String type) {
+	//private ArrayList<T> allAthletes ;
+	
+     private ArrayList<Athlete> allAthletes;
+	
+	public PersonalCompetition(Refere refere, Stadium stadium, compatitionType type) {
 		super(refere, stadium, type);
-		allAthletes = new ArrayList<T>();
+		allAthletes = new ArrayList<Athlete>();
 	}
 
 	//sort by runner/jumpping high >> return sort array type Runner/Jummping high :)
 	@Override
 	public ArrayList<String> treeWinnersCountry(){
+		
 
 		ArrayList<String> nameOfWinningCountrys = new ArrayList<String>(3);
 		
@@ -30,7 +33,7 @@ public class PersonalCompetition<T extends Athlete> extends Competition {
 
 						Athlete tempAthlete = allAthletes.get(j);
 						allAthletes.set(j, allAthletes.get(j+1));
-						allAthletes.set(j+1, (T) tempAthlete);
+						allAthletes.set(j+1, tempAthlete);
 					}
 				}
 			
@@ -55,9 +58,25 @@ public class PersonalCompetition<T extends Athlete> extends Competition {
 			
 		}
 		return treeWinnerAthletes; 
-
 	}*/
+	public void addAthleteToCom(Athlete athlete) {
+		allAthletes.add(athlete);
+		
+	}
 
+	public ArrayList<Athlete> getAllAthletes() {
+		return allAthletes;
+	}
+
+	public void setAllAthletes(ArrayList<Athlete> allAthletes) {
+		this.allAthletes = allAthletes;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonalCompetition [allAthletes=" + allAthletes + "]";
+	}
+	
 
 
 }

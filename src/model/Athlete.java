@@ -3,15 +3,15 @@ package model;
 
 
 public class Athlete {
-	
+
 	private String name;
-	 private String country;
-	 private int score;
-	 public enum AthleteType {running , highJumpping, both};
-     private AthleteType type;
-	 
-	 
-	 public Athlete(String name ,String country,AthleteType type , int score ) {
+	private String country;
+	private int score;
+	public enum AthleteType {Runner , HighJumper, both};
+	private AthleteType type;
+
+
+	public Athlete(String name ,String country,AthleteType type , int score ) {
 		this.country = country;
 		this.name = name;
 		this.score = score;
@@ -32,8 +32,24 @@ public class Athlete {
 	public String getName() {
 		return name;
 	}
+
+
+	@Override
+	public String toString() {
+		return  name + ", country=" + country + ", score=" + score + ", type=" + type;
+	}
+
+
+	public AthleteType getType() {
+		return type;
+	}
+
+
 	
-	
-	
+
+
+
+
+
 
 }

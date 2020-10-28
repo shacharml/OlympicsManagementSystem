@@ -2,21 +2,45 @@ package model;
 
 import java.util.ArrayList;
 
-public class Team<T extends Athlete>{
+import model.Athlete.AthleteType;
 
-	private ArrayList<T> allAthletes ;
+public class Team {//<T extends Athlete>{
+
+	//protected enum teamType {Runner , HighJumper}
+	private AthleteType type;
+	
+	private ArrayList<Athlete> allAthletes ;
+	//private T t;
 	private String country;
 	private int outCome;
 	//
-	public Team( int outCome,String country) {
-		allAthletes = new ArrayList<T>();
+	public Team(String country , AthleteType type) {
 		this.country = country;
-		this.outCome = outCome;
+		this.outCome = 0;
+		this.type = type;
+		this.allAthletes = new ArrayList<Athlete>(); 	
+		
 	}
 
-	public void addAthleteToTeam(T athlete ) {
-		allAthletes.add(athlete);
 
+
+	public AthleteType getType() {
+		return type;
+	}
+
+
+
+	public int sumOfScoresAthlete() {
+		
+		for (int i = 0; i < allAthletes.size(); i++) {
+			outCome += allAthletes.get(i).getScore();
+		}
+		
+		return outCome;
+	}
+
+	public void addAthleteToTeam(Athlete athlete ) {
+		allAthletes.add(athlete);
 	}
 
 	public int getOutCome() {
@@ -26,6 +50,15 @@ public class Team<T extends Athlete>{
 	public String getCountry() {
 		return country;
 	}
+
+	@Override
+	public String toString() {
+		return "Team [allAthletes=" + allAthletes + ", country=" + country + ", outCome=" + outCome + "]" + "\n";
+	}
+	
+	
+	
+	
 
 
 }
