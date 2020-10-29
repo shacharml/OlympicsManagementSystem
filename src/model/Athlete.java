@@ -36,7 +36,7 @@ public class Athlete {
 
 	@Override
 	public String toString() {
-		return  name + ", country=" + country + ", score=" + score + ", type=" + type;
+		return  name + ", " + country + ", " + score + ", " + type;
 	}
 
 

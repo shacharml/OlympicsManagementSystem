@@ -52,8 +52,7 @@ public class GUI implements UIinterface {
 	private ObservableList<String> allCountrys = Stream.of(Locale.getISOCountries())
 			.map(locales -> new Locale("", locales)).map(Locale::getDisplayCountry)
 			.collect(Collectors.toCollection(FXCollections::observableArrayList));
-	// ComboBox<String> cb = new ComboBox<>(allCountrys);
-	//private ObservableList<String> allTeamsAndAtletes;
+
 	private Label allRefereAndAllStadium = new Label();
 	private Label allAthletes = new Label();
 	private Button btShowAllAthletes = new Button();
@@ -111,6 +110,7 @@ public class GUI implements UIinterface {
 		btCreatOlympics.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
+				btCreatOlympics.setVisible(false);
 				Stage stageCreatOlympics = new Stage();
 				stageCreatOlympics.setTitle("Creat Olympics");
 
@@ -227,55 +227,26 @@ public class GUI implements UIinterface {
 				TextField txStadium = new TextField();
 				txStadium.setMaxWidth(100);
 
-				//Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
-				//ListView<String> allAtletes = new ListView<String>();
-				
-				
-				
-				
-				
-				
-				
 				Button btSelect = new Button(" select ");
 				btSelect.setOnAction(new EventHandler<ActionEvent>() {
-					
+
 					@Override
 					public void handle(ActionEvent arg0) {
-					
-						for(SystemUIEventListener l : allListeners)
-						 l.getArraySelect(cmCompetitionType.getValue(), cmType.getValue(), txIndexRefere.getText(),txStadium.getText() );
+
+						for (SystemUIEventListener l : allListeners)
+							l.getArraySelect(cmCompetitionType.getValue(), cmType.getValue(), txIndexRefere.getText(),
+									txStadium.getText());
 						stageAddCompetition.close();
 					}
 				});
-				
-				
-				//ObservableList<String> items = FXCollections.observableArrayList("Alex", "dima", "vlad");
-				//allAtletes.setItems(items);
-				//allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-			/*	Button btAddComp = new Button(" Add Competition ");
-				btAddComp.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent action) {
-						for (SystemUIEventListener l : allListeners)
-							if (cmType.getValue().equals(compatitionType.HighJumper.toString())) {
-								l.addCompetitionToUIEvent(compatitionType.HighJumper, cmCompetitionType.getValue(),
-										txIndexRefere.getText(), txStadium.getText());
-							}else
-							l.addCompetitionToUIEvent(compatitionType.Runner, cmCompetitionType.getValue(),
-									txIndexRefere.getText(), txStadium.getText());
-					}
-				});*/
 
 				vbAddCompatition.getChildren().addAll(lbType, cmType, lbCompetitionType, cmCompetitionType, lbRefere,
-						txIndexRefere, lbStadium, txStadium, spShowAll,btSelect);
+						txIndexRefere, lbStadium, txStadium, spShowAll, btSelect);
 
 				stageAddCompetition.setScene(new Scene(vbAddCompatition, 600, 600));
 				stageAddCompetition.show();
 
 			}
-
-	
 		});
 
 		btAddStadium.setOnAction(new EventHandler<ActionEvent>() {
@@ -557,9 +528,8 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete,
-				btAddStadium, btAddRefere,  btAddCompetition,btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics,
-				btShowAllOlympic);
+		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete, btAddStadium, btAddRefere,
+				btAddCompetition, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics, btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
 
 		theStage.setScene(new Scene(vbRoots, 300, 600));
@@ -668,115 +638,112 @@ public class GUI implements UIinterface {
 	public void showAllOlimpics(String allOlimpic) {
 		Stage stageAllOlimpic = new Stage();
 		Label lbAllOlimpic = new Label(allOlimpic);
-		stageAllOlimpic.setScene(new Scene(lbAllOlimpic));
+		ScrollPane allOlimpicScroll  = new ScrollPane(lbAllOlimpic);
+		
+		stageAllOlimpic.setScene(new Scene(allOlimpicScroll));
 		stageAllOlimpic.show();
 
 	}
 
-	
 	@Override
-	public void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere, String indexStadium) {
-		ArrayList<Athlete>newArr = new ArrayList<Athlete>();
+	public void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere,
+			String indexStadium) {
+		ArrayList<Athlete> newArr = new ArrayList<Athlete>();
 		for (int i = 0; i < arraySelect.size(); i++) {
 			newArr.add(arraySelect.get(i));
 		}
 		ArrayList<Object> selectAthletes = new ArrayList<Object>();
-		
-		
-		Stage stAllAtheleteSelect = new  Stage();
+
+		Stage stAllAtheleteSelect = new Stage();
 		VBox vboxSelect = new VBox();
 		Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
 		ListView<Athlete> allAtletes = new ListView<Athlete>();
-	//	ObservableList<String> items = (ObservableList<String>) newArr ;
-		//show on the screen
+		// ObservableList<String> items = (ObservableList<String>) newArr ;
+		// show on the screen
 		ObservableList<Athlete> items = FXCollections.observableArrayList(newArr);
-		
-		
-		//ObservableList<String> items = FXCollections.observableArrayList("Cricket", "Chess", "Kabaddy", "Badminton",
-			//    "Football", "Golf", "CoCo", "car racing");
+
+		// ObservableList<String> items = FXCollections.observableArrayList("Cricket",
+		// "Chess", "Kabaddy", "Badminton",
+		// "Football", "Golf", "CoCo", "car racing");
 		allAtletes.setItems(items);
 		allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-	 
 
 		Button btselect = new Button(" Add Competition ");
 		btselect.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent arg0) {
+				stAllAtheleteSelect.close();
 				ObservableList<Athlete> selectItems = allAtletes.getSelectionModel().getSelectedItems();
-				for (Athlete athlete : selectItems ) {
+				for (Athlete athlete : selectItems) {
 					selectAthletes.add(athlete);
-					
+
 				}
 				for (SystemUIEventListener l : allListeners)
-					
+
 					if (typeAthlete.equals(compatitionType.HighJumper.toString())) {
-						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Personal Competition",
-								indexRefere, indexStadium,selectAthletes);
-					}else
-					l.addCompetitionToUIEvent(compatitionType.Runner, "Personal Competition",
-							indexRefere, indexStadium,selectAthletes);
-				
+						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Personal Competition", indexRefere,
+								indexStadium, selectAthletes);
+					} else
+						l.addCompetitionToUIEvent(compatitionType.Runner, "Personal Competition", indexRefere,
+								indexStadium, selectAthletes);
+
 			}
 		});
-		
-		vboxSelect.getChildren().addAll(lbIndexAthlete , allAtletes,btselect);
+
+		vboxSelect.getChildren().addAll(lbIndexAthlete, allAtletes, btselect);
 		stAllAtheleteSelect.setScene(new Scene(vboxSelect));
 
 		stAllAtheleteSelect.show();
 
 	}
-	
 
 	@Override
-	public void getArraySelectTeam(ArrayList<Team> arraySelect, String typeTeam, String indexRefere, String indexStadium) {
-		
-		ArrayList<Team>newArr = new ArrayList<Team>();
+	public void getArraySelectTeam(ArrayList<Team> arraySelect, String typeTeam, String indexRefere,
+			String indexStadium) {
+
+		ArrayList<Team> newArr = new ArrayList<Team>();
 		for (int i = 0; i < arraySelect.size(); i++) {
 			newArr.add(arraySelect.get(i));
 		}
-		
-		
-		Stage stAllTeamSelect = new  Stage();
+
+		Stage stAllTeamSelect = new Stage();
 		VBox vboxSelect = new VBox();
 		Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
 		ListView<Team> allAtletes = new ListView<Team>();
-		//ObservableList<String> items = (ObservableList<String>) newArr ;
+		// ObservableList<String> items = (ObservableList<String>) newArr ;
 		ObservableList<Team> items = FXCollections.observableArrayList(newArr);
-				//("Cricket", "Chess", "Kabaddy", "Badminton", "Football", "Golf", "CoCo", "car racing");
+		// ("Cricket", "Chess", "Kabaddy", "Badminton", "Football", "Golf", "CoCo", "car
+		// racing");
 		allAtletes.setItems(items);
 		allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-	
 
 		Button btselect = new Button(" Add Competition ");
 		btselect.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent arg0) {
+				stAllTeamSelect.close();
 				ArrayList<Object> selectTeams = new ArrayList<Object>();
 				ObservableList<Team> selectItems = allAtletes.getSelectionModel().getSelectedItems();
-				for (Team teams : selectItems ) {
+				for (Team teams : selectItems) {
 					selectTeams.add(teams);
-					
 				}
-				
-				for (SystemUIEventListener l : allListeners)
-					
 
+				for (SystemUIEventListener l : allListeners)
 					if (typeTeam.equals(compatitionType.HighJumper.toString())) {
-						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Team Competition",
-								indexRefere, indexStadium,selectTeams);
-					}else
-					l.addCompetitionToUIEvent(compatitionType.Runner, "Team Competition",
-					indexRefere, indexStadium,selectTeams);
+						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Team Competition", indexRefere,
+								indexStadium, selectTeams);
+					} else
+						l.addCompetitionToUIEvent(compatitionType.Runner, "Team Competition", indexRefere, indexStadium,
+								selectTeams);
 			}
 		});
-		
-		vboxSelect.getChildren().addAll(lbIndexAthlete , allAtletes, btselect);
+
+		vboxSelect.getChildren().addAll(lbIndexAthlete, allAtletes, btselect);
 		stAllTeamSelect.setScene(new Scene(vboxSelect));
 		stAllTeamSelect.show();
 
-		
 	}
 
 }

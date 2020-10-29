@@ -31,7 +31,13 @@ public class Country {
 	}
 	@Override
 	public String toString() {
-		return "Country [name=" + name + ", totalMedals=" + totalMedals + "\n , allTeams=" + allTeams + "]";
+		String str = name + ": \n";
+		str += "Number of meadals : " +totalMedals+ "\n";
+		for (int i = 0; i < allTeams.size(); i++) {
+			str+= (i+1) +") " + allTeams.get(i).toString()+"\n";
+		}
+		str+= "\n\n";
+		return   str;
 	}
 
 	

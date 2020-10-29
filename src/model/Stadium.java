@@ -27,7 +27,7 @@ public class Stadium {
 
 	@Override
 	public String toString() {
-		return  name + ", Location=" + location + ", Num of Seats=" + numOfSeats;
+		return  name + ", Location: " + location + ", Num of Seats: " + numOfSeats;
 	}
 	
 

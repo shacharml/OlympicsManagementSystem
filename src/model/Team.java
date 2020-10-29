@@ -47,7 +47,12 @@ public class Team {// <T extends Athlete>{
 
 	@Override
 	public String toString() {
-		return "Team [allAthletes=" + allAthletes + ", country=" + country + ", outCome=" + outCome + "]" + "\n";
+		String str = country + "Team:\n";
+		for (int i = 0; i < allAthletes.size(); i++) {
+			str += (i + 1) + ") " + allAthletes.get(i).toString() + "\n";
+		}
+		str+= "Score of all team : "+ outCome;
+		return str;
 	}
 
 }

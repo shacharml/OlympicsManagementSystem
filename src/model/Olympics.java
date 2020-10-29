@@ -34,10 +34,10 @@ public class Olympics {
 		Competition competition;
 
 		if (competitionType.equals("Personal Competition")) {
-			System.out.println("35");
+			//System.out.println("35");
 			competition = new PersonalCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1),
 					type);
-			System.out.println(37);
+			//System.out.println(37);
 			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
 				// for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
 				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
@@ -47,7 +47,7 @@ public class Olympics {
 					((PersonalCompetition) competition).addAthleteToCom(at);
 
 				}
-				System.out.println(competition + "1");
+				//System.out.println(competition + "1");
 			}
 		} else
 			competition = new TeamCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1), type);
@@ -60,7 +60,7 @@ public class Olympics {
 			}
 		}
 		allComptitions.add(competition);
-		System.out.println(allComptitions + "2");
+		//System.out.println(allComptitions + "2");
 		return competition;
 	}
 

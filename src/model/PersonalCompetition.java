@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class PersonalCompetition extends Competition {// <T extends Athlete> extends Competition {
 
-	// private String PCtype;
-	// private ArrayList<T> allAthletes ;
-
 	private ArrayList<Athlete> allAthletes;
 
 	public PersonalCompetition(Refere refere, Stadium stadium, compatitionType type) {
@@ -18,7 +15,6 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 	// :)
 	@Override
 	public ArrayList<String> treeWinnersCountry() {
-
 		ArrayList<String> nameOfWinningCountrys = new ArrayList<String>(3);
 
 		if (allAthletes.isEmpty()) {
@@ -36,7 +32,6 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 					allAthletes.set(j + 1, tempAthlete);
 				}
 			}
-
 		}
 
 		for (int k = 0; k < 3; k++) {
@@ -45,19 +40,8 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 		return nameOfWinningCountrys;
 	}
 
-	/*
-	 * public ArrayList<String> treeWinnersAthletes(){ ArrayList<String>
-	 * treeWinnerAthletes = new ArrayList<String>(3);
-	 * 
-	 * 
-	 * for (int i = 0; i < 3; i++) {
-	 * treeWinnerAthletes.add(allAthletes.get(i).getCountry());
-	 * 
-	 * } return treeWinnerAthletes; }
-	 */
 	public void addAthleteToCom(Athlete athlete) {
 		allAthletes.add(athlete);
-
 	}
 
 	public ArrayList<Athlete> getAllAthletes() {
@@ -70,7 +54,10 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 
 	@Override
 	public String toString() {
-		return "PersonalCompetition [allAthletes=" + allAthletes + "]";
-	}
+		String str ="Personal competition : " +super.toString();
+		for (int i = 0; i < allAthletes.size(); i++) {
+			str += allAthletes.get(i).toString() + "\n";
+		}
+		return str;	}
 
 }
