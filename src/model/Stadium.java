@@ -1,14 +1,14 @@
 package model;
 
 public class Stadium {
-	
+
 	private String name;
 	private String location;
 	private int numOfSeats;
-	
-	public Stadium(String name ,String location,int numOfSeats  ) {
-		 
-		this.location=location;
+
+	public Stadium(String name, String location, int numOfSeats) {
+
+		this.location = location;
 		this.name = name;
 		this.numOfSeats = numOfSeats;
 	}
@@ -27,8 +27,7 @@ public class Stadium {
 
 	@Override
 	public String toString() {
-		return  name + ", Location: " + location + ", Num of Seats: " + numOfSeats;
+		return name + ", Location: " + location + ", Num of Seats: " + numOfSeats;
 	}
-	
 
 }

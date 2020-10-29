@@ -20,7 +20,7 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 		if (allAthletes.isEmpty()) {
 			return null;
 		}
-//bubble sort
+		// bubble sort
 		for (int i = 0; i < allAthletes.size() - 1; i++) {
 
 			for (int j = 0; j < allAthletes.size() - 1; j++) {
@@ -54,10 +54,12 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 
 	@Override
 	public String toString() {
-		String str ="Personal competition : " +super.toString();
+		String str = "Personal competition : " + super.toString();
 		for (int i = 0; i < allAthletes.size(); i++) {
 			str += allAthletes.get(i).toString() + "\n";
 		}
-		return str;	}
+		return str;
+	}
 
+	
 }

@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 import model.Athlete.AthleteType;
 
-public class Team {// <T extends Athlete>{
+public class Team {
 
-	// protected enum teamType {Runner , HighJumper}
 	private AthleteType type;
-
 	private ArrayList<Athlete> allAthletes;
-	// private T t;
 	private String country;
 	private int outCome;
 
@@ -51,8 +48,13 @@ public class Team {// <T extends Athlete>{
 		for (int i = 0; i < allAthletes.size(); i++) {
 			str += (i + 1) + ") " + allAthletes.get(i).toString() + "\n";
 		}
-		str+= "Score of all team : "+ outCome;
+		str += "Score of all team : " + outCome;
 		return str;
 	}
 
+	public ArrayList<Athlete> getAllAthletes() {
+		return allAthletes;
+	}
+
+	
 }

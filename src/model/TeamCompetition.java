@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class TeamCompetition extends Competition {// <T extends Athlete> extends Competition{
 
-	// private String PCtype;
 	private ArrayList<Team> allTeams;
 
 	public TeamCompetition(Refere refere, Stadium stadium, compatitionType type) {
@@ -44,6 +43,10 @@ public class TeamCompetition extends Competition {// <T extends Athlete> extends
 		}
 		return treeWinnerCountry;
 
+	}
+
+	public ArrayList<Team> getAllTeams() {
+		return allTeams;
 	}
 
 	@Override

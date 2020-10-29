@@ -1,8 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import model.Athlete.AthleteType;
 import model.Competition.compatitionType;
 
@@ -15,7 +13,6 @@ public class Olympics {
 	private ArrayList<Country> allCountrys;
 	private ArrayList<Stadium> allStadiums;
 	private ArrayList<Athlete> allAthletes;
-	//private ArrayList<Team> allTeams;
 
 	public Olympics(String startDate, String endDate) {
 		this.startDate = startDate;
@@ -25,7 +22,6 @@ public class Olympics {
 		allStadiums = new ArrayList<Stadium>();
 		allAthletes = new ArrayList<Athlete>();
 		allCountrys = new ArrayList<Country>();
-		//allTeams = new ArrayList<Team>();
 	}
 
 	public Competition addCompitition(compatitionType type, String competitionType, int indexRefere, int indexStadium,
@@ -38,7 +34,6 @@ public class Olympics {
 					type);
 			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
 				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
-				System.out.println(TeamOrAthlete);
 				if (TeamOrAthlete instanceof Athlete) {
 					Athlete at = (Athlete) TeamOrAthlete;
 					((PersonalCompetition) competition).addAthleteToCom(at);
@@ -133,7 +128,7 @@ public class Olympics {
 		int indexCountry = findMyCountry(country);
 
 		if (indexCountry != -1) {
-			
+
 			if (allCountrys.get(indexCountry).getAllTeams().isEmpty()) {
 				// type.equals(AthleteType.both)
 				if (athlete instanceof RunnerAndJumper) {
@@ -211,7 +206,6 @@ public class Olympics {
 				}
 			}
 		}
-		System.out.println("the arrary of country is sorted ! ");
 	}
 
 	public String showAllRefereAndStadiums() {
@@ -272,20 +266,16 @@ public class Olympics {
 	}
 
 	public ArrayList<Team> getArraySelectTeam(String typeAthlete) {
-		System.out.println(274);
 		ArrayList<Team> allTeams = getAllTeams();
 		ArrayList<Team> allTeamsByType = new ArrayList<Team>();
 
 		for (int i = 0; i < allTeams.size(); i++) {
 			if (allTeams.get(i).getType().toString().equalsIgnoreCase(typeAthlete)
 					|| allTeams.get(i).getType().toString().equalsIgnoreCase("both")) {
-				System.out.println(allTeams.get(i));
 				allTeamsByType.add(allTeams.get(i));
 			}
 		}
-System.out.println(allTeamsByType.toString());
 		return allTeamsByType;
-		
 	}
 
 	public ArrayList<Team> getAllTeams() {
@@ -330,4 +320,35 @@ System.out.println(allTeamsByType.toString());
 		return;
 
 	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public ArrayList<Competition> getAllComptitions() {
+		return allComptitions;
+	}
+
+	public ArrayList<Refere> getAllReferes() {
+		return allReferes;
+	}
+
+	public ArrayList<Country> getAllCountrys() {
+		return allCountrys;
+	}
+
+	public ArrayList<Stadium> getAllStadiums() {
+		return allStadiums;
+	}
+
+	public ArrayList<Athlete> getAllAthletes() {
+		return allAthletes;
+	}
+	
+	
+	
 }

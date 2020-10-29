@@ -19,6 +19,14 @@ public abstract class Competition {
 		this.type = type;
 	}
 
+	public Refere getRefere() {
+		return refere;
+	}
+
+	public Stadium getStadium() {
+		return stadium;
+	}
+
 	public abstract ArrayList<String> treeWinnersCountry();
 
 	@Override

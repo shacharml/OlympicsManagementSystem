@@ -19,10 +19,7 @@ import java.util.Locale;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import javax.crypto.SealedObject;
 import javax.swing.JOptionPane;
-
 import controller.ManagementSystemController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -95,16 +92,13 @@ public class GUI implements UIinterface {
 
 		Button btCreatOlympics = new Button("Creat an olympics");
 		Button btAddAthlete = new Button("Add athlete");
-		//Button btAddCoutry = new Button("Ädd Country");
 		Button btAddCompetition = new Button("Add competition");
 		Button btAddStadium = new Button("Add Stadium");
 		Button btAddRefere = new Button("Add Refere");
-
 		Button btRemoveAthlete = new Button("Remove Athlete");
 		Button btShowAllOlympic = new Button("Show All Olympic");
 		Button btRemoveStadium = new Button("Remove Stadium");
 		Button btRemoveRefere = new Button("Remove Refere");
-
 		Button btEndOlympics = new Button("End olympics and show the winners");
 
 		btCreatOlympics.setOnAction(new EventHandler<ActionEvent>() {
@@ -488,8 +482,6 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		
-
 		btShowAllOlympic.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -499,6 +491,7 @@ public class GUI implements UIinterface {
 			}
 		});
 
+		
 		vbRoots.getChildren().addAll(imageView, btCreatOlympics,btAddAthlete, btAddStadium, btAddRefere,
 				btAddCompetition, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics, btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
@@ -521,11 +514,6 @@ public class GUI implements UIinterface {
 	}
 
 	@Override
-	public void addCountry() {
-		JOptionPane.showMessageDialog(null, "the country was added");
-	}
-
-	@Override
 	public void addStadiums(String stadium) {
 		JOptionPane.showMessageDialog(null, stadium);
 
@@ -540,12 +528,6 @@ public class GUI implements UIinterface {
 	@Override
 	public void registerListener(ManagementSystemController managementSystemController) {
 		this.allListeners.add(managementSystemController);
-
-	}
-
-	@Override
-	public void RemoveCompitition() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -573,14 +555,12 @@ public class GUI implements UIinterface {
 	@Override
 	public void removeAthlete() {
 		btShowAllAthletes.fire();
-
 	}
 
 	@Override
 
 	public void removeStadium() {
 		btShowAllRefereStadium.fire();
-
 	}
 
 	@Override

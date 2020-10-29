@@ -2,8 +2,6 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
 import listeners.SystemEventListener;
 import listeners.SystemUIEventListener;
 import model.AdminSystem;
@@ -34,12 +32,6 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	}
 
 	@Override
-	public void addTeamToUIEvent() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void addStadiumToUIEvent(String name, String location, int seats) {
 		adminSystem.addStadium(name,location,seats);
 
@@ -60,12 +52,6 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	@Override
 	public void addAthleteToModelEvent() {
 		systemView.addAthlete();
-
-	}
-
-	@Override
-	public void addTeamToModelEvent() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -94,44 +80,8 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	}
 
 	@Override
-	public void RemoveCompititionToUIEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void RemoveReferesToUIEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void RemoveCountryToUIEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void RemoveStadiumsToUIEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void RemoveCompititionToModelEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void RemoveRefereToModelEvent() {
 		systemView.RemoveRefere();
-		
-	}
-
-	@Override
-	public void RemoveCountryToModelEvent() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -208,18 +158,6 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	}
 
 	@Override
-	public void addCountryToUI(String countryName) {
-		adminSystem.addCountry(countryName);
-		
-	}
-
-	@Override
-	public void addCountryToModelEvent() {
-		systemView.addCountry();
-		
-	}
-
-	@Override
 	public void ShowAllOlimpicToUI() {
 		adminSystem.showAllOlimpic();
 		
@@ -249,9 +187,5 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	public void getArraySelectTeam(ArrayList<Team> arraySelect,String typeAthlete, String indexRefere, String indexStadium) {
 		systemView.getArraySelectTeam(arraySelect, typeAthlete,indexRefere,indexStadium);		
 	}
-
-
-	
-	
 
 }
