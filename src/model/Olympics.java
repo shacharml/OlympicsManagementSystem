@@ -15,7 +15,7 @@ public class Olympics {
 	private ArrayList<Country> allCountrys;
 	private ArrayList<Stadium> allStadiums;
 	private ArrayList<Athlete> allAthletes;
-	private ArrayList<Team> allTeams;
+	//private ArrayList<Team> allTeams;
 
 	public Olympics(String startDate, String endDate) {
 		this.startDate = startDate;
@@ -25,7 +25,7 @@ public class Olympics {
 		allStadiums = new ArrayList<Stadium>();
 		allAthletes = new ArrayList<Athlete>();
 		allCountrys = new ArrayList<Country>();
-		allTeams = new ArrayList<Team>();
+		//allTeams = new ArrayList<Team>();
 	}
 
 	public Competition addCompitition(compatitionType type, String competitionType, int indexRefere, int indexStadium,
@@ -133,7 +133,7 @@ public class Olympics {
 		int indexCountry = findMyCountry(country);
 
 		if (indexCountry != -1) {
-
+			
 			if (allCountrys.get(indexCountry).getAllTeams().isEmpty()) {
 				// type.equals(AthleteType.both)
 				if (athlete instanceof RunnerAndJumper) {
@@ -271,8 +271,21 @@ public class Olympics {
 		return AllOlimpic;
 	}
 
-	public ArrayList<Team> getArraySelectTeam() {
-		return getAllTeams();
+	public ArrayList<Team> getArraySelectTeam(String typeAthlete) {
+		System.out.println(274);
+		ArrayList<Team> allTeams = getAllTeams();
+		ArrayList<Team> allTeamsByType = new ArrayList<Team>();
+
+		for (int i = 0; i < allTeams.size(); i++) {
+			if (allTeams.get(i).getType().toString().equalsIgnoreCase(typeAthlete)
+					|| allTeams.get(i).getType().toString().equalsIgnoreCase("both")) {
+				System.out.println(allTeams.get(i));
+				allTeamsByType.add(allTeams.get(i));
+			}
+		}
+System.out.println(allTeamsByType.toString());
+		return allTeamsByType;
+		
 	}
 
 	public ArrayList<Team> getAllTeams() {
@@ -285,28 +298,36 @@ public class Olympics {
 		return allTeams;
 	}
 
-	public ArrayList<Athlete> getArraySelectAthlete() {
-		return allAthletes;
+	public ArrayList<Athlete> getArraySelectAthlete(String typeAthlete) {
+		ArrayList<Athlete> allAthletesByType = new ArrayList<Athlete>();
+
+		for (int i = 0; i < allAthletes.size(); i++) {
+			if (allAthletes.get(i).getType().toString().equalsIgnoreCase(typeAthlete)
+					|| allAthletes.get(i).getType().toString().equalsIgnoreCase("both")) {
+				allAthletesByType.add(allAthletes.get(i));
+			}
+		}
+
+		return allAthletesByType;
 	}
 
 	public void serchAndAddCountryByName(String country) {
-		
+
 		if (allCountrys.isEmpty()) {
 			Country country2 = new Country(country);
 			allCountrys.add(country2);
 			return;
 		}
-		
+
 		for (int i = 0; i < allCountrys.size(); i++) {
 			if (allCountrys.get(i).getName().equalsIgnoreCase(country)) {
 				return;
 			}
 		}
-		
+
 		Country country2 = new Country(country);
 		allCountrys.add(country2);
 		return;
-		
-		
+
 	}
 }

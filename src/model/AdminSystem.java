@@ -199,11 +199,12 @@ public class AdminSystem {
 
 	public void getArraySelect(String competitionType, String typeAthlete, String indexRefere, String indexStadium) {
 		if (competitionType.equalsIgnoreCase("Personal Competition")) {
-			ArrayList<Athlete> arraySelect = olympics.getArraySelectAthlete();
+			ArrayList<Athlete> arraySelect = olympics.getArraySelectAthlete(typeAthlete);
 			fireGetArraySelectAthlet(arraySelect , typeAthlete,indexRefere,indexStadium);
 		}
 		else {
-			ArrayList<Team> arraySelect = olympics.getArraySelectTeam();
+			ArrayList<Team> arraySelect = olympics.getArraySelectTeam(typeAthlete);
+			System.out.println(207);
 		   fireGetArraySelectTeam(arraySelect, typeAthlete,indexRefere,indexStadium);
 		}
 		

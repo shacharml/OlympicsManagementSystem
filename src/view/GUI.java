@@ -95,7 +95,7 @@ public class GUI implements UIinterface {
 
 		Button btCreatOlympics = new Button("Creat an olympics");
 		Button btAddAthlete = new Button("Add athlete");
-		Button btAddCoutry = new Button("Ädd Country");
+		//Button btAddCoutry = new Button("Ädd Country");
 		Button btAddCompetition = new Button("Add competition");
 		Button btAddStadium = new Button("Add Stadium");
 		Button btAddRefere = new Button("Add Refere");
@@ -110,7 +110,7 @@ public class GUI implements UIinterface {
 		btCreatOlympics.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
-				btCreatOlympics.setVisible(false);
+				
 				Stage stageCreatOlympics = new Stage();
 				stageCreatOlympics.setTitle("Creat Olympics");
 
@@ -123,6 +123,7 @@ public class GUI implements UIinterface {
 				btCreate.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent action) {
+						btCreatOlympics.setVisible(false);
 						for (SystemUIEventListener l : allListeners)
 							l.createOlympicUIEvent(datePickerS.getValue(), datePickerE.getValue());
 						stageCreatOlympics.close();
@@ -213,7 +214,7 @@ public class GUI implements UIinterface {
 
 				Label lbType = new Label("choose type of compatition :");
 				ComboBox<String> cmType = new ComboBox<String>();
-				cmType.getItems().addAll("Run", "High Jump");
+				cmType.getItems().addAll("Runner", "HighJumper");
 
 				Label lbCompetitionType = new Label("choose type of compatition :");
 				ComboBox<String> cmCompetitionType = new ComboBox<String>();
@@ -487,37 +488,7 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		btAddCoutry.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent action) {
-
-				Stage stageAddCountry = new Stage();
-				stageAddCountry.setTitle("Add Country");
-
-				VBox vbAddCountry = new VBox();
-				vbAddCountry.setSpacing(10);
-				vbAddCountry.setPadding(new Insets(10));
-				vbAddCountry.setAlignment(Pos.TOP_CENTER);
-
-				Label lbAddCountry = new Label("Choose the country you want to add olimpics :");
-				ComboBox<String> cb = new ComboBox<>(allCountrys);
-
-				Button btAddCo = new Button("Add Country !");
-				btAddCo.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent action) {
-						for (SystemUIEventListener l : allListeners)
-							l.addCountryToUI(cb.getValue());
-						stageAddCountry.close();
-					}
-				});
-
-				vbAddCountry.getChildren().addAll(lbAddCountry, cb, btAddCo);
-				stageAddCountry.setScene(new Scene(vbAddCountry));
-				stageAddCountry.show();
-
-			}
-		});
+		
 
 		btShowAllOlympic.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -528,7 +499,7 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete, btAddStadium, btAddRefere,
+		vbRoots.getChildren().addAll(imageView, btCreatOlympics,btAddAthlete, btAddStadium, btAddRefere,
 				btAddCompetition, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics, btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
 
@@ -581,24 +552,16 @@ public class GUI implements UIinterface {
 	@Override
 	public void RemoveRefere() {
 		btShowAllRefereStadium.fire();
-
 	}
 
 	@Override
 	public void createOlympic(String startDate, String endDate) {
 		JOptionPane.showMessageDialog(null, startDate + "  " + endDate);
-
 	}
 
 	@Override
 	public void showAllRefereAndStadiums(String showAll) {
-
 		this.allRefereAndAllStadium.setText(showAll);
-		/*
-		 * Stage AllAll = new Stage(); AllAll.setScene(new
-		 * Scene(allRefereAndAllStadium)); AllAll.show();
-		 */
-
 	}
 
 	@Override
@@ -634,7 +597,7 @@ public class GUI implements UIinterface {
 		Label lbAllOlimpic = new Label(allOlimpic);
 		ScrollPane allOlimpicScroll  = new ScrollPane(lbAllOlimpic);
 		
-		stageAllOlimpic.setScene(new Scene(allOlimpicScroll));
+		stageAllOlimpic.setScene(new Scene(allOlimpicScroll,500,400));
 		stageAllOlimpic.show();
 
 	}
