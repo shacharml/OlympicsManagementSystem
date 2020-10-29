@@ -15,7 +15,7 @@ public class Olympics {
 	private ArrayList<Country> allCountrys;
 	private ArrayList<Stadium> allStadiums;
 	private ArrayList<Athlete> allAthletes;
-	private ArrayList<Team> allTeams ;
+	private ArrayList<Team> allTeams;
 
 	public Olympics(String startDate, String endDate) {
 		this.startDate = startDate;
@@ -25,58 +25,43 @@ public class Olympics {
 		allStadiums = new ArrayList<Stadium>();
 		allAthletes = new ArrayList<Athlete>();
 		allCountrys = new ArrayList<Country>();
-		allTeams = new ArrayList<Team>(); 
+		allTeams = new ArrayList<Team>();
 	}
 
-	public Competition addCompitition(compatitionType type, String competitionType, int indexRefere, int indexStadium,ArrayList<Object>allAthlesOrAllTeams) {
+	public Competition addCompitition(compatitionType type, String competitionType, int indexRefere, int indexStadium,
+			ArrayList<Object> allAthlesOrAllTeams) {
 
 		Competition competition;
 
 		if (competitionType.equals("Personal Competition")) {
 			System.out.println("35");
-		competition = new PersonalCompetition(allReferes.get(indexRefere-1), allStadiums.get(indexStadium-1), type);
-		System.out.println(37);
+			competition = new PersonalCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1),
+					type);
+			System.out.println(37);
 			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
-				//for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
-					Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
-					System.out.println(TeamOrAthlete);
-					if (TeamOrAthlete instanceof Athlete) {
-						Athlete at = (Athlete)TeamOrAthlete;
-						((PersonalCompetition)competition).addAthleteToCom(at);
-						
+				// for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
+				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
+				System.out.println(TeamOrAthlete);
+				if (TeamOrAthlete instanceof Athlete) {
+					Athlete at = (Athlete) TeamOrAthlete;
+					((PersonalCompetition) competition).addAthleteToCom(at);
+
 				}
-    System.out.println(competition +"1" );
+				System.out.println(competition + "1");
 			}
 		} else
-			competition = new TeamCompetition(allReferes.get(indexRefere-1), allStadiums.get(indexStadium-1), type);
+			competition = new TeamCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1), type);
 		for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
-			//for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
-				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
-				if (TeamOrAthlete instanceof Team) {
-					Team te = (Team)TeamOrAthlete;
-					((TeamCompetition)competition).addTeams(te);
-				
+			// for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
+			Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
+			if (TeamOrAthlete instanceof Team) {
+				Team te = (Team) TeamOrAthlete;
+				((TeamCompetition) competition).addTeams(te);
 			}
-
 		}
 		allComptitions.add(competition);
-		System.out.println(allComptitions+ "2");
+		System.out.println(allComptitions + "2");
 		return competition;
-		/*
-		 * if (type.equalsIgnoreCase("Run")) { competition = new
-		 * PersonalCompetition(allReferes.get(indexRefere - 1),
-		 * allStadiums.get(indexStadium - 1),compatitionType.Runner); } else {
-		 * competition = new PersonalCompetition(allReferes.get(indexRefere - 1),
-		 * allStadiums.get(indexStadium - 1), compatitionType.HighJumper); }
-		 * 
-		 * } else {// Team Copetition if (type.equalsIgnoreCase("Run")) { competition =
-		 * new TeamCompetition(allReferes.get(indexRefere - 1),
-		 * allStadiums.get(indexStadium - 1), compatitionType.Runner); } else {
-		 * competition = new TeamCompetition(allReferes.get(indexRefere - 1),
-		 * allStadiums.get(indexStadium - 1), compatitionType.HighJumper);
-		 * 
-		 * } } allComptitions.add(competition); return competition;
-		 */
 	}
 
 	public void addReferes(Refere refere) {
@@ -84,9 +69,7 @@ public class Olympics {
 	}
 
 	public void removeReferes(int indexRefere) {
-
 		allReferes.remove(indexRefere);
-
 	}
 
 	public void addCountry(Country country) {
@@ -104,28 +87,25 @@ public class Olympics {
 
 	public void addStadiums(Stadium stadium) {
 		allStadiums.add(stadium);
-
 	}
 
 	public void removeStadiums(int indexStadium) {
-
 		allStadiums.remove(indexStadium - 1);
-
 	}
 
 	public void addMedalsToCountrys() {
 
 		for (int i = 0; i < allComptitions.size(); i++) {
-
-			// tempWinning : 3 winners countrys in competition num i // israel brazil
-			// lebanon
-			ArrayList<String> tempWinning = allComptitions.get(i).treeWinnersCountry();
-
+			ArrayList<String> tempWinning;
+			// tempWinning : 3 winners countrys in competition num i
+			if (allComptitions.get(i) instanceof PersonalCompetition) {
+				tempWinning = ((PersonalCompetition) allComptitions.get(i)).treeWinnersCountry();
+			} else {
+				tempWinning = ((TeamCompetition) allComptitions.get(i)).treeWinnersCountry();
+			}
 			for (int j = 0; j < tempWinning.size(); j++) {
 				searchAddMedalsByName(tempWinning.get(j));
-
 			}
-
 		}
 	}
 
@@ -135,21 +115,10 @@ public class Olympics {
 			if (allCountrys.get(i).getName().equalsIgnoreCase(country)) {
 				allCountrys.get(i).addMedals();
 				return;
-
 			}
-
 		}
 	}
 
-	/*
-	 * public void addAthlete(String name, String country, String type, int score) {
-	 * 
-	 * Athlete athlete; if (type.equals("running")) { athlete = new Runner(score,
-	 * name, type, country); } else if (type.equals("highJumpping")) { athlete = new
-	 * HighJumper(name, country, type, score); } else { athlete = new
-	 * RunnerAndJumper(name, country, type, score); } allAthletes.add(athlete); }
-	 */
-	// TODO need to work on this!!
 	public int findMyCountry(String cuontry) {
 		for (int i = 0; i < allCountrys.size(); i++) {
 			if (allCountrys.get(i).getName().equals(cuontry)) {
@@ -170,7 +139,7 @@ public class Olympics {
 		if (indexCountry != -1) {
 
 			if (allCountrys.get(indexCountry).getAllTeams().isEmpty()) {
-				//type.equals(AthleteType.both)
+				// type.equals(AthleteType.both)
 				if (athlete instanceof RunnerAndJumper) {
 					Team teamRun = new Team(country, AthleteType.Runner);
 					teamRun.addAthleteToTeam(athlete);
@@ -226,15 +195,14 @@ public class Olympics {
 
 	public ArrayList<String> treeCountrysWinning() {
 		addMedalsToCountrys();
+
 		bubbleSortByMedals();
 
-		ArrayList<String> nameOfTheWinners = new ArrayList<String>(3);
-		for (int i = 0; i < nameOfTheWinners.size(); i++) {
+		ArrayList<String> nameOfTheWinners = new ArrayList<String>();
+		for (int i = 0; i < 3; i++) {
 			nameOfTheWinners.add(allCountrys.get(i).getName());
-
 		}
 		return nameOfTheWinners;
-
 	}
 
 	public void bubbleSortByMedals() {
@@ -245,11 +213,9 @@ public class Olympics {
 					allCountrys.set(j, allCountrys.get(j + 1));
 					allCountrys.set(j + 1, tempCountry);
 				}
-
 			}
-
 		}
-
+		System.out.println("the arrary of country is sorted ! ");
 	}
 
 	public String showAllRefereAndStadiums() {
@@ -275,7 +241,6 @@ public class Olympics {
 		for (int i = 0; i < allAthletes.size(); i++) {
 			str += (i + 1) + ")" + allAthletes.get(i).toString() + "\n";
 		}
-
 		return str;
 	}
 
@@ -285,7 +250,6 @@ public class Olympics {
 		for (int i = 0; i < allCountrys.size(); i++) {
 			str += (i + 1) + ")" + allCountrys.get(i).toString() + "\n";
 		}
-
 		return str;
 	}
 
@@ -294,11 +258,10 @@ public class Olympics {
 
 		for (int i = 0; i < allComptitions.size(); i++) {
 			if (allComptitions.get(i) instanceof PersonalCompetition) {
-			str +=	(i + 1) + ")"+ ((PersonalCompetition)allComptitions.get(i)).toString();
-			}
-			else 
-				str +=	(i + 1) + ")"+ ((TeamCompetition)allComptitions.get(i)).toString();		}
-
+				str += (i + 1) + ")" + ((PersonalCompetition) allComptitions.get(i)).toString();
+			} else
+				str += (i + 1) + ")" + ((TeamCompetition) allComptitions.get(i)).toString();
+		}
 		return str;
 	}
 
@@ -309,18 +272,15 @@ public class Olympics {
 		AllOlimpic += "\n\n" + showAllCopetition();
 		AllOlimpic += "\n\n" + showAllAthletes();
 		AllOlimpic += "\n\n" + showAllCountrys();
-
 		return AllOlimpic;
 	}
 
-
 	public ArrayList<Team> getArraySelectTeam() {
-
 		return getAllTeams();
 	}
 
 	public ArrayList<Team> getAllTeams() {
-		ArrayList<Team> allTeams =new ArrayList<Team>();
+		ArrayList<Team> allTeams = new ArrayList<Team>();
 		for (int i = 0; i < allCountrys.size(); i++) {
 			for (int j = 0; j < allCountrys.get(i).getAllTeams().size(); j++) {
 				allTeams.add(allCountrys.get(i).getAllTeams().get(j));
@@ -329,9 +289,7 @@ public class Olympics {
 		return allTeams;
 	}
 
-
 	public ArrayList<Athlete> getArraySelectAthlete() {
-
 		return allAthletes;
 	}
 

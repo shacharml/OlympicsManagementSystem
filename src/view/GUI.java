@@ -557,8 +557,8 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete, btAddCompetition,
-				btAddStadium, btAddRefere, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics,
+		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddCoutry, btAddAthlete,
+				btAddStadium, btAddRefere,  btAddCompetition,btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics,
 				btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
 
