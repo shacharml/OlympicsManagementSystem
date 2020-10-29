@@ -33,6 +33,10 @@ public class AdminSystem {
 	}
 
 	public void addAthlete(String name, String country, String type , int score) {
+
+		olympics.serchAndAddCountryByName(country);
+       
+		
 		Athlete athlete;
 		if (type.equalsIgnoreCase(AthleteType.HighJumper.toString())) {
 			 athlete = new HighJumper(name, country, AthleteType.HighJumper, score);

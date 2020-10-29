@@ -34,12 +34,9 @@ public class Olympics {
 		Competition competition;
 
 		if (competitionType.equals("Personal Competition")) {
-			//System.out.println("35");
 			competition = new PersonalCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1),
 					type);
-			//System.out.println(37);
 			for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
-				// for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
 				Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
 				System.out.println(TeamOrAthlete);
 				if (TeamOrAthlete instanceof Athlete) {
@@ -47,7 +44,6 @@ public class Olympics {
 					((PersonalCompetition) competition).addAthleteToCom(at);
 
 				}
-				//System.out.println(competition + "1");
 			}
 		} else
 			competition = new TeamCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1), type);
@@ -60,7 +56,7 @@ public class Olympics {
 			}
 		}
 		allComptitions.add(competition);
-		//System.out.println(allComptitions + "2");
+		// System.out.println(allComptitions + "2");
 		return competition;
 	}
 
@@ -293,4 +289,24 @@ public class Olympics {
 		return allAthletes;
 	}
 
+	public void serchAndAddCountryByName(String country) {
+		
+		if (allCountrys.isEmpty()) {
+			Country country2 = new Country(country);
+			allCountrys.add(country2);
+			return;
+		}
+		
+		for (int i = 0; i < allCountrys.size(); i++) {
+			if (allCountrys.get(i).getName().equalsIgnoreCase(country)) {
+				return;
+			}
+		}
+		
+		Country country2 = new Country(country);
+		allCountrys.add(country2);
+		return;
+		
+		
+	}
 }

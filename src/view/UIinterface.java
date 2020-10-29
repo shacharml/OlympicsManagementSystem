@@ -28,8 +28,6 @@ public interface UIinterface {
 
 	void removeStadium();
 
-	ArrayList<String> treeCountrysWinning();
-
 	void registerListener(ManagementSystemController managementSystemControllew);
 
 	void showAllRefereAndStadiums(String showAll);

@@ -237,7 +237,6 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 		
 	}
 
-
 	@Override
 	
 

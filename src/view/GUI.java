@@ -567,12 +567,6 @@ public class GUI implements UIinterface {
 	}
 
 	@Override
-	public ArrayList<String> treeCountrysWinning() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void registerListener(ManagementSystemController managementSystemController) {
 		this.allListeners.add(managementSystemController);
 
