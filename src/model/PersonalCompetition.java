@@ -61,5 +61,4 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 		return str;
 	}
 
-	
 }

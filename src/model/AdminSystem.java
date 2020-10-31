@@ -8,7 +8,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import exceptions.DontSelectAll;
+import exceptions.InccorentIndex;
+import exceptions.NotValideDate;
+import exceptions.RefereFirst;
+import exceptions.StadiumFirst;
+import exceptions.TheWrongTypeJudge;
+
 public class AdminSystem {
+	final int ZERO = 0;
 
 	private Olympics olympics;
 	private Vector<SystemEventListener> listeners;
@@ -17,13 +25,13 @@ public class AdminSystem {
 		listeners = new Vector<SystemEventListener>();
 	}
 
-	public void createOlypics(LocalDate startDate, LocalDate endDate) {
+	public void createOlypics(LocalDate startDate, LocalDate endDate) throws NotValideDate {
 		// TODO need to check if endDate more late then StartDate mabye Excepcion
 		olympics = new Olympics(startDate.toString(), endDate.toString());
 		fireCreateOlympicEvent(startDate.toString(), endDate.toString());
 	}
 
-	private void fireCreateOlympicEvent(String startDate, String endDate) {
+	private void fireCreateOlympicEvent(String startDate, String endDate) throws NotValideDate {
 		for (SystemEventListener l : listeners)
 			l.createOlympicModelEvent(startDate, endDate);
 	}
@@ -33,26 +41,30 @@ public class AdminSystem {
 
 	}
 
-	public void addAthlete(String name, String country, String type, int score) {
+	public void addAthlete(String name, String country, String type, int score) throws DontSelectAll {
 
-		olympics.serchAndAddCountryByName(country);
-
-		Athlete athlete;
-		
-		if (type.equalsIgnoreCase(AthleteType.HighJumper.toString())) {
-			athlete = new HighJumper(name, country, AthleteType.HighJumper, score);
-		} else if (type.equalsIgnoreCase(AthleteType.Runner.toString())) {
-			athlete = new Runner(name, country, AthleteType.Runner, score);
+		if (name.isBlank() || country.isBlank() || type.isBlank()) {
+			throw new DontSelectAll();
 		} else {
-			athlete = new RunnerAndJumper(name, country, AthleteType.both, score);
+			olympics.serchAndAddCountryByName(country);
+
+			Athlete athlete;
+
+			if (type.equalsIgnoreCase(AthleteType.HighJumper.toString())) {
+				athlete = new HighJumper(name, country, AthleteType.HighJumper, score);
+			} else if (type.equalsIgnoreCase(AthleteType.Runner.toString())) {
+				athlete = new Runner(name, country, AthleteType.Runner, score);
+			} else {
+				athlete = new RunnerAndJumper(name, country, AthleteType.both, score);
+			}
+
+			olympics.addAthlete(athlete);
+
+			fireAddAthleteEvent();
 		}
-
-		olympics.addAthlete(athlete);
-
-		fireAddAthleteEvent();
 	}
 
-	private void fireAddAthleteEvent() {
+	private void fireAddAthleteEvent() throws DontSelectAll {
 		for (SystemEventListener l : listeners)
 			l.addAthleteToModelEvent();
 	}
@@ -70,35 +82,49 @@ public class AdminSystem {
 	}
 
 	public void addCompetition(compatitionType type, String competitionType, int indexRefere, int indexStadium,
-			ArrayList<Object> allAthlesOrAllTeams) {
-
-		Competition comp = (Competition) olympics.addCompitition(type, competitionType, indexRefere, indexStadium,
-				allAthlesOrAllTeams);
-		fireAddCompetitionEvent(comp);
+			ArrayList<Object> allAthlesOrAllTeams) throws InccorentIndex, DontSelectAll {
+		if (indexRefere < ZERO || olympics.getAllReferes().size() < indexRefere || indexStadium < ZERO
+				|| olympics.getAllStadiums().size() < indexStadium) {
+			throw new InccorentIndex();
+		}
+		if (type.equals(null) || competitionType.isBlank()) {
+			throw new DontSelectAll();
+		} else {
+			Competition comp = (Competition) olympics.addCompitition(type, competitionType, indexRefere, indexStadium,
+					allAthlesOrAllTeams);
+			fireAddCompetitionEvent(comp);
+		}
 	}
 
-	private void fireAddCompetitionEvent(Competition comp) {
+	private void fireAddCompetitionEvent(Competition comp) throws InccorentIndex, DontSelectAll {
 		for (SystemEventListener l : listeners)
 			l.addCompetitionToModelEvent(comp);
 
 	}
 
-	public void addStadium(String name, String location, int seats) {
-		Stadium stadium = new Stadium(name, location, seats);
-		olympics.addStadiums(stadium);
-		fireAddStadiumEvent(stadium.toString());
+	public void addStadium(String name, String location, int seats) throws DontSelectAll {
+		if (name.isBlank() || location.isBlank() || seats == ZERO) {
+			throw new DontSelectAll();
+		} else {
+			Stadium stadium = new Stadium(name, location, seats);
+			olympics.addStadiums(stadium);
+			fireAddStadiumEvent(stadium.toString());
+		}
 	}
 
-	private void fireAddStadiumEvent(String stadium) {
+	private void fireAddStadiumEvent(String stadium) throws DontSelectAll {
 		for (SystemEventListener l : listeners)
 			l.addStadiumToModelEvent(stadium);
 	}
 
-	public void addRefere(String name, String country, String typeOfJuging) {
-
-		Refere refere = new Refere(name, country, typeOfJuging);
-		olympics.addReferes(refere);
-		fireAddRefereEvent(refere);
+	public void addRefere(String name, String country, String typeOfJuging) throws DontSelectAll {
+		if (name.isBlank() || country.isBlank() || typeOfJuging.isBlank()) {
+			throw new DontSelectAll();
+		} else {
+			Refere refere = new Refere(name, country, typeOfJuging);
+			olympics.addReferes(refere);
+			fireAddRefereEvent(refere);
+		}
 	}
 
 	private void fireAddRefereEvent(Refere refere) {
@@ -118,34 +144,43 @@ public class AdminSystem {
 
 	}
 
-	public void removeAthlete(int indexAthlete) {
-		olympics.removeAthlete(indexAthlete);
+	public void removeAthlete(int indexAthlete) throws InccorentIndex {
+		if (indexAthlete < ZERO || olympics.getAllAthletes().size() < indexAthlete) {
+			throw new InccorentIndex();
+		} else
+			olympics.removeAthlete(indexAthlete);
 		fireRemoveAthleteEvent();
 	}
 
-	private void fireRemoveAthleteEvent() {
+	private void fireRemoveAthleteEvent() throws InccorentIndex {
 		for (SystemEventListener l : listeners)
 			l.RemoveAthleteToModelEvent();
 
 	}
 
-	public void removeStadium(int indexStadium) {
-		olympics.removeStadiums(indexStadium);
+	public void removeStadium(int indexStadium) throws InccorentIndex {
+		if (indexStadium < ZERO || olympics.getAllStadiums().size() < indexStadium) {
+			throw new InccorentIndex();
+		} else
+			olympics.removeStadiums(indexStadium);
 		fireRemoveStadiumEvent();
 	}
 
-	private void fireRemoveStadiumEvent() {
+	private void fireRemoveStadiumEvent() throws InccorentIndex {
 		for (SystemEventListener l : listeners)
 			l.RemoveStadiumToModelEvent();
 
 	}
 
-	public void removeRefere(int indexRefere) {
-		olympics.removeReferes(indexRefere);
+	public void removeRefere(int indexRefere) throws InccorentIndex {
+		if (indexRefere < ZERO || olympics.getAllReferes().size() < indexRefere) {
+			throw new InccorentIndex();
+		} else
+			olympics.removeReferes(indexRefere);
 		fireRemoveRefere();
 	}
 
-	private void fireRemoveRefere() {
+	private void fireRemoveRefere() throws InccorentIndex {
 		for (SystemEventListener l : listeners)
 			l.RemoveRefereToModelEvent();
 	}
@@ -179,30 +214,57 @@ public class AdminSystem {
 
 	}
 
-	public void getArraySelect(String competitionType, String typeAthlete, String indexRefere, String indexStadium) {
-		if (competitionType.equalsIgnoreCase("Personal Competition")) {
-			ArrayList<Athlete> arraySelect = olympics.getArraySelectAthlete(typeAthlete);
-			fireGetArraySelectAthlet(arraySelect, typeAthlete, indexRefere, indexStadium);
-		} else {
-			ArrayList<Team> arraySelect = olympics.getArraySelectTeam(typeAthlete);
-			fireGetArraySelectTeam(arraySelect, typeAthlete, indexRefere, indexStadium);
-		}
+	public void getArraySelect(String competitionType, String typeAthlete, String indexRefere, String indexStadium)
+			throws DontSelectAll, InccorentIndex, TheWrongTypeJudge, RefereFirst, StadiumFirst {
 
+		if (indexRefere.isBlank() || indexStadium.isBlank() || typeAthlete.isBlank() || competitionType.isBlank()) {
+			throw new DontSelectAll();
+		} else if (!(olympics.getAllReferes().get(Integer.parseInt(indexRefere) - 1).getSportJugement()
+				.equals(typeAthlete))) {
+			throw new TheWrongTypeJudge();
+		} else if (olympics.getAllReferes().isEmpty()) {
+			throw new RefereFirst();
+
+		} else if (olympics.getAllStadiums().isEmpty()) {
+			throw new StadiumFirst();
+		} else {
+			if (competitionType.equalsIgnoreCase("Personal Competition")) {
+				ArrayList<Athlete> arraySelect = olympics.getArraySelectAthlete(typeAthlete);
+				fireGetArraySelectAthlet(arraySelect, typeAthlete, indexRefere, indexStadium);
+			} else {
+				ArrayList<Team> arraySelect = olympics.getArraySelectTeam(typeAthlete);
+				fireGetArraySelectTeam(arraySelect, typeAthlete, indexRefere, indexStadium);
+			}
+		}
 	}
 
 	public void fireGetArraySelectAthlet(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere,
-			String indexStadium) {
+			String indexStadium) throws InccorentIndex {
+		int indexRefere1 = Integer.parseInt(indexRefere);
+		int indexStadium1 = Integer.parseInt(indexStadium);
 
-		for (SystemEventListener l : listeners)
-			l.getArraySelectAthlete(arraySelect, typeAthlete, indexRefere, indexStadium);
-
+		if (indexRefere1 < ZERO || olympics.getAllReferes().size() < indexRefere1 || indexStadium1 < ZERO
+				|| olympics.getAllStadiums().size() < indexStadium1) {
+			throw new InccorentIndex();
+		} else {
+			for (SystemEventListener l : listeners)
+				l.getArraySelectAthlete(arraySelect, typeAthlete, indexRefere, indexStadium);
+		}
 	}
 
 	public void fireGetArraySelectTeam(ArrayList<Team> arraySelect, String typeAthlete, String indexRefere,
-			String indexStadium) {
+			String indexStadium) throws InccorentIndex {
 
-		for (SystemEventListener l : listeners)
-			l.getArraySelectTeam(arraySelect, typeAthlete, indexRefere, indexStadium);
+		int indexRefere1 = Integer.parseInt(indexRefere);
+		int indexStadium1 = Integer.parseInt(indexStadium);
+
+		if (indexRefere1 < ZERO || olympics.getAllReferes().size() < indexRefere1 || indexStadium1 < ZERO
+				|| olympics.getAllStadiums().size() < indexStadium1) {
+			throw new InccorentIndex();
+		} else {
+			for (SystemEventListener l : listeners)
+				l.getArraySelectTeam(arraySelect, typeAthlete, indexRefere, indexStadium);
+		}
 	}
 
 }

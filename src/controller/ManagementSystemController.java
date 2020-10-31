@@ -2,6 +2,13 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import exceptions.DontSelectAll;
+import exceptions.InccorentIndex;
+import exceptions.NotValideDate;
+import exceptions.RefereFirst;
+import exceptions.StadiumFirst;
+import exceptions.TheWrongTypeJudge;
 import listeners.SystemEventListener;
 import listeners.SystemUIEventListener;
 import model.AdminSystem;
@@ -18,28 +25,28 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	private UIinterface systemView;
 
 	public ManagementSystemController(AdminSystem adminSystem, UIinterface systemView) {
-		this.adminSystem= adminSystem;
-		this.systemView= systemView;
-		
+		this.adminSystem = adminSystem;
+		this.systemView = systemView;
+
 		adminSystem.registerListener(this);
 		systemView.registerListener(this);
 
 	}
 
 	@Override
-	public void addAthleteToUIEvent(String name, String country, String type , Integer score) {
-		adminSystem.addAthlete(name , country,type,score);
+	public void addAthleteToUIEvent(String name, String country, String type, Integer score) throws DontSelectAll {
+		adminSystem.addAthlete(name, country, type, score);
 	}
 
 	@Override
-	public void addStadiumToUIEvent(String name, String location, int seats) {
-		adminSystem.addStadium(name,location,seats);
+	public void addStadiumToUIEvent(String name, String location, int seats) throws DontSelectAll {
+		adminSystem.addStadium(name, location, seats);
 
 	}
 
 	@Override
-	public void addRefereToUIEvent(String name, String countery, String typeOfJuging) {
-		adminSystem.addRefere(name,countery,typeOfJuging);
+	public void addRefereToUIEvent(String name, String countery, String typeOfJuging) throws DontSelectAll {
+		adminSystem.addRefere(name, countery, typeOfJuging);
 
 	}
 
@@ -82,110 +89,120 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	@Override
 	public void RemoveRefereToModelEvent() {
 		systemView.RemoveRefere();
-		
+
 	}
 
 	@Override
 	public void RemoveStadiumToModelEvent() {
 		systemView.removeStadium();
-		
+
 	}
 
 	@Override
-	public void createOlympicUIEvent(LocalDate startDate, LocalDate endDate) {
+	public void createOlympicUIEvent(LocalDate startDate, LocalDate endDate) throws NotValideDate {
 		adminSystem.createOlypics(startDate, endDate);
-		
+
 	}
 
 	@Override
 	public void createOlympicModelEvent(String startDate, String endDate) {
-		systemView.createOlympic(startDate,endDate);
-		
+		systemView.createOlympic(startDate, endDate);
+
 	}
 
 	@Override
 	public void showAllRefereAndStadiumsUIEvent() {
 		adminSystem.showAllRefereAndStadiums();
-		
+
 	}
 
 	@Override
 	public void showAllRefereAndStadiumsUModelEvent(String showAll) {
 		systemView.showAllRefereAndStadiums(showAll);
-		
+
 	}
 
 	@Override
-	public void addCompetitionToUIEvent(compatitionType type, String competitionType, String IndexRefere, String IndexStadium,ArrayList<Object>allAthlesOrAllTeams) {
-		adminSystem.addCompetition(type , competitionType , Integer.parseInt(IndexRefere), Integer.parseInt(IndexStadium),allAthlesOrAllTeams);
-		
+	public void addCompetitionToUIEvent(compatitionType type, String competitionType, String IndexRefere,
+			String IndexStadium, ArrayList<Object> allAthlesOrAllTeams) throws InccorentIndex, DontSelectAll {
+		if (type.equals(null) || competitionType.equals(null) || IndexRefere.equals(null)
+				|| IndexStadium.equals(null)) {
+			throw new DontSelectAll();
+		} else
+			adminSystem.addCompetition(type, competitionType, Integer.parseInt(IndexRefere),
+					Integer.parseInt(IndexStadium), allAthlesOrAllTeams);
+
 	}
 
 	@Override
 	public void showAllAthletesUIEvent() {
 		adminSystem.showAllAthletes();
-		
+
 	}
 
 	@Override
 	public void showAllAthletesModelEvent(String allAthletes) {
 		systemView.showAllAthletes(allAthletes);
-		
+
 	}
 
 	@Override
-	public void RemoveAthleteToUIEvent(int indexAthlete) {
+	public void RemoveAthleteToUIEvent(int indexAthlete) throws InccorentIndex {
+
 		adminSystem.removeAthlete(indexAthlete);
-		
+
 	}
 
 	@Override
-	public void RemoveAthleteToModelEvent() {
+	public void RemoveAthleteToModelEvent() throws InccorentIndex {
 		systemView.removeAthlete();
-		
+
 	}
 
 	@Override
-	public void RemoveStadiumToUIEvent(int indexStadium) {
+	public void RemoveStadiumToUIEvent(int indexStadium) throws InccorentIndex {
 		adminSystem.removeStadium(indexStadium);
-		
+
 	}
 
 	@Override
-	public void RemoveRefereToUIEvent(int indexRefere) {
+	public void RemoveRefereToUIEvent(int indexRefere) throws InccorentIndex {
 		adminSystem.removeRefere(indexRefere);
-		
+
 	}
 
 	@Override
 	public void ShowAllOlimpicToUI() {
 		adminSystem.showAllOlimpic();
-		
+
 	}
 
 	@Override
 	public void showAllOlimpicsToModelEvent(String allOlimpic) {
 		systemView.showAllOlimpics(allOlimpic);
-		
+
 	}
 
 	@Override
-	public void getArraySelect(String competitionType, String typeAthlete, String indexRefere, String indexStadium) {
-		adminSystem.getArraySelect(competitionType,typeAthlete,indexRefere,indexStadium);
-		
+	public void getArraySelect(String competitionType, String typeAthlete, String indexRefere, String indexStadium)
+			throws DontSelectAll, InccorentIndex, TheWrongTypeJudge, RefereFirst, StadiumFirst {
+
+		adminSystem.getArraySelect(competitionType, typeAthlete, indexRefere, indexStadium);
+
 	}
 
 	@Override
-	
 
-	public void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere, String indexStadium) {
-		systemView.getArraySelectAthlete(arraySelect , typeAthlete,indexRefere,indexStadium);
-		
+	public void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere,
+			String indexStadium) {
+		systemView.getArraySelectAthlete(arraySelect, typeAthlete, indexRefere, indexStadium);
+
 	}
 
 	@Override
-	public void getArraySelectTeam(ArrayList<Team> arraySelect,String typeAthlete, String indexRefere, String indexStadium) {
-		systemView.getArraySelectTeam(arraySelect, typeAthlete,indexRefere,indexStadium);		
+	public void getArraySelectTeam(ArrayList<Team> arraySelect, String typeAthlete, String indexRefere,
+			String indexStadium) {
+		systemView.getArraySelectTeam(arraySelect, typeAthlete, indexRefere, indexStadium);
 	}
 
 }

@@ -43,7 +43,6 @@ public class Olympics {
 		} else
 			competition = new TeamCompetition(allReferes.get(indexRefere - 1), allStadiums.get(indexStadium - 1), type);
 		for (int i = 0; i < allAthlesOrAllTeams.size(); i++) {
-			// for (int j = 0; j < allAthlesOrAllTeams.size(); j++) {
 			Object TeamOrAthlete = allAthlesOrAllTeams.get(i);
 			if (TeamOrAthlete instanceof Team) {
 				Team te = (Team) TeamOrAthlete;
@@ -51,7 +50,6 @@ public class Olympics {
 			}
 		}
 		allComptitions.add(competition);
-		// System.out.println(allComptitions + "2");
 		return competition;
 	}
 
@@ -291,6 +289,10 @@ public class Olympics {
 		}
 
 		Country country2 = new Country(country);
+		Team teamRun = new Team(country, AthleteType.Runner);
+		Team teamJump = new Team(country, AthleteType.HighJumper);
+		country2.getAllTeams().add(teamJump);
+		country2.getAllTeams().add(teamRun);
 		allCountrys.add(country2);
 		return;
 

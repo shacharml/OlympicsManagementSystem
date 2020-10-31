@@ -2,6 +2,9 @@ package listeners;
 
 import java.util.ArrayList;
 
+import exceptions.DontSelectAll;
+import exceptions.InccorentIndex;
+import exceptions.NotValideDate;
 import model.Athlete;
 import model.Competition;
 import model.Refere;
@@ -9,23 +12,23 @@ import model.Team;
 
 public interface SystemEventListener {
 
-	void createOlympicModelEvent(String startDate, String endDate);
+	void createOlympicModelEvent(String startDate, String endDate) throws NotValideDate;
 
-	void addAthleteToModelEvent();
+	void addAthleteToModelEvent() throws DontSelectAll;
 
-	void addCompetitionToModelEvent(Competition comp);
+	void addCompetitionToModelEvent(Competition comp) throws InccorentIndex, DontSelectAll;
 
-	void addStadiumToModelEvent(String stadium);
+	void addStadiumToModelEvent(String stadium) throws DontSelectAll;
 
 	void addRefereToModelEvent(Refere refere);
 
 	void showAllTheWinnersToModelEvent(String theWinners);
 
-	void RemoveAthleteToModelEvent();
+	void RemoveAthleteToModelEvent() throws InccorentIndex;
 
-	void RemoveRefereToModelEvent();
+	void RemoveRefereToModelEvent() throws InccorentIndex;
 
-	void RemoveStadiumToModelEvent();
+	void RemoveStadiumToModelEvent() throws InccorentIndex;
 
 	void showAllRefereAndStadiumsUModelEvent(String showAll);
 

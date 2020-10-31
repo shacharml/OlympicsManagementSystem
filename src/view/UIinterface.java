@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import controller.ManagementSystemController;
+import exceptions.InccorentIndex;
 import model.Athlete;
 import model.Competition;
 import model.Refere;
@@ -22,7 +23,7 @@ public interface UIinterface {
 
 	void RemoveRefere();
 
-	void removeAthlete();
+	void removeAthlete() throws InccorentIndex;
 
 	void removeStadium();
 
@@ -36,7 +37,8 @@ public interface UIinterface {
 
 	void showAllOlimpics(String allOlimpic);
 
-	void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere, String indexStadium);
+	void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere,
+			String indexStadium);
 
 	void getArraySelectTeam(ArrayList<Team> arraySelect, String typeAthlete, String indexRefere, String indexStadium);
 

@@ -44,7 +44,7 @@ public class Team {
 
 	@Override
 	public String toString() {
-		String str = country + "Team"+type.toString()+":\n";
+		String str = country + "Team - " + type.toString() + ":\n";
 		for (int i = 0; i < allAthletes.size(); i++) {
 			str += (i + 1) + ") " + allAthletes.get(i).toString() + "\n";
 		}
@@ -56,5 +56,4 @@ public class Team {
 		return allAthletes;
 	}
 
-	
 }

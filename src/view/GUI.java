@@ -21,6 +21,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import controller.ManagementSystemController;
+import exceptions.DontSelectAll;
+import exceptions.InccorentIndex;
+import exceptions.NotValideDate;
+import exceptions.RefereFirst;
+import exceptions.StadiumFirst;
+import exceptions.TheWrongTypeJudge;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -101,10 +107,20 @@ public class GUI implements UIinterface {
 		Button btRemoveRefere = new Button("Remove Refere");
 		Button btEndOlympics = new Button("End olympics and show the winners");
 
+		btAddAthlete.setVisible(false);
+		btAddCompetition.setVisible(false);
+		btAddStadium.setVisible(false);
+		btAddRefere.setVisible(false);
+		btRemoveAthlete.setVisible(false);
+		btShowAllOlympic.setVisible(false);
+		btRemoveStadium.setVisible(false);
+		btRemoveRefere.setVisible(false);
+		btEndOlympics.setVisible(false);
+
 		btCreatOlympics.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent action) {
-				
+
 				Stage stageCreatOlympics = new Stage();
 				stageCreatOlympics.setTitle("Creat Olympics");
 
@@ -117,10 +133,33 @@ public class GUI implements UIinterface {
 				btCreate.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent action) {
-						btCreatOlympics.setVisible(false);
-						for (SystemUIEventListener l : allListeners)
-							l.createOlympicUIEvent(datePickerS.getValue(), datePickerE.getValue());
-						stageCreatOlympics.close();
+
+						for (SystemUIEventListener l : allListeners) {
+							try {
+								if (datePickerS.getValue().isAfter(datePickerE.getValue())
+										|| datePickerS.getValue().isEqual(datePickerE.getValue())) {
+									throw new NotValideDate();
+								} else {
+									l.createOlympicUIEvent(datePickerS.getValue(), datePickerE.getValue());
+									btCreatOlympics.setVisible(false);
+									btAddAthlete.setVisible(true);
+									btAddCompetition.setVisible(true);
+									btAddStadium.setVisible(true);
+									btAddRefere.setVisible(true);
+									btRemoveAthlete.setVisible(true);
+									btShowAllOlympic.setVisible(true);
+									btRemoveStadium.setVisible(true);
+									btRemoveRefere.setVisible(true);
+									btEndOlympics.setVisible(true);
+								}
+								stageCreatOlympics.close();
+
+							} catch (NotValideDate e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+							}
+
+						}
 					}
 				});
 
@@ -166,8 +205,18 @@ public class GUI implements UIinterface {
 					@Override
 					public void handle(ActionEvent action) {
 						for (SystemUIEventListener l : allListeners)
-							l.addAthleteToUIEvent(tfName.getText(), cmCountry.getValue(), cmTypeOfAthlete.getValue(),
-									cmScoreOfAthlete.getValue());
+							try {
+								if (cmScoreOfAthlete.getValue() == null) {
+									throw new DontSelectAll();
+								}
+
+								l.addAthleteToUIEvent(tfName.getText(), cmCountry.getValue(),
+										cmTypeOfAthlete.getValue(), cmScoreOfAthlete.getValue());
+
+							} catch (DontSelectAll e) {
+
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
 
 						stageAddAthlete.close();
 					}
@@ -229,9 +278,24 @@ public class GUI implements UIinterface {
 					public void handle(ActionEvent arg0) {
 
 						for (SystemUIEventListener l : allListeners)
-							l.getArraySelect(cmCompetitionType.getValue(), cmType.getValue(), txIndexRefere.getText(),
-									txStadium.getText());
+							try {
+
+								l.getArraySelect(cmCompetitionType.getValue(), cmType.getValue(),
+										txIndexRefere.getText(), txStadium.getText());
+							} catch (InccorentIndex e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							} catch (DontSelectAll e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							} catch (TheWrongTypeJudge e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							} catch (RefereFirst e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							} catch (StadiumFirst e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
+
 						stageAddCompetition.close();
+
 					}
 				});
 
@@ -287,8 +351,13 @@ public class GUI implements UIinterface {
 					public void handle(ActionEvent action) {
 
 						for (SystemUIEventListener l : allListeners) {
-							l.addStadiumToUIEvent(tfNameStadium.getText(), tfLocation.getText(),
-									(int) slider.getValue());
+							try {
+								l.addStadiumToUIEvent(tfNameStadium.getText(), tfLocation.getText(),
+										(int) slider.getValue());
+							} catch (DontSelectAll e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+							}
 							stageAddStadium.close();
 						}
 					}
@@ -332,8 +401,12 @@ public class GUI implements UIinterface {
 					public void handle(ActionEvent action) {
 
 						for (SystemUIEventListener l : allListeners) {
-							l.addRefereToUIEvent(tfNameRefere.getText(), cmCountry.getValue(),
-									cmTypeOfjuging.getValue());
+							try {
+								l.addRefereToUIEvent(tfNameRefere.getText(), cmCountry.getValue(),
+										cmTypeOfjuging.getValue());
+							} catch (DontSelectAll e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
 							stageAddRefere.close();
 						}
 					}
@@ -374,7 +447,11 @@ public class GUI implements UIinterface {
 					@Override
 					public void handle(ActionEvent action) {
 						for (SystemUIEventListener l : allListeners) {
-							l.RemoveAthleteToUIEvent(Integer.parseInt(tfIndexAthleteR.getText()));
+							try {
+								l.RemoveAthleteToUIEvent(Integer.parseInt(tfIndexAthleteR.getText()));
+							} catch (InccorentIndex e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
 
 						}
 
@@ -417,7 +494,11 @@ public class GUI implements UIinterface {
 					@Override
 					public void handle(ActionEvent action) {
 						for (SystemUIEventListener l : allListeners) {
-							l.RemoveStadiumToUIEvent(Integer.parseInt(tfIndexStadiummR.getText()));
+							try {
+								l.RemoveStadiumToUIEvent(Integer.parseInt(tfIndexStadiummR.getText()));
+							} catch (InccorentIndex e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
 
 						}
 
@@ -460,7 +541,11 @@ public class GUI implements UIinterface {
 					@Override
 					public void handle(ActionEvent action) {
 						for (SystemUIEventListener l : allListeners) {
-							l.RemoveRefereToUIEvent(Integer.parseInt(tfIndexRefere.getText()));
+							try {
+								l.RemoveRefereToUIEvent(Integer.parseInt(tfIndexRefere.getText()));
+							} catch (InccorentIndex e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+							}
 
 						}
 
@@ -491,8 +576,7 @@ public class GUI implements UIinterface {
 			}
 		});
 
-		
-		vbRoots.getChildren().addAll(imageView, btCreatOlympics,btAddAthlete, btAddStadium, btAddRefere,
+		vbRoots.getChildren().addAll(imageView, btCreatOlympics, btAddAthlete, btAddStadium, btAddRefere,
 				btAddCompetition, btRemoveAthlete, btRemoveStadium, btRemoveRefere, btEndOlympics, btShowAllOlympic);
 		vbRoots.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
 
@@ -503,25 +587,25 @@ public class GUI implements UIinterface {
 
 	@Override
 	public void addCompitition(Competition comp) {
-		JOptionPane.showMessageDialog(null, comp.toString());
+		System.out.println(comp.toString());
 
 	}
 
 	@Override
 	public void addReferes(Refere refere) {
-		JOptionPane.showMessageDialog(null, refere.toString());
+		System.out.println(refere.toString());
 
 	}
 
 	@Override
 	public void addStadiums(String stadium) {
-		JOptionPane.showMessageDialog(null, stadium);
+		System.out.println(stadium);
 
 	}
 
 	@Override
 	public void addAthlete() {
-		JOptionPane.showMessageDialog(null, " add an athlete ");
+		System.out.println(" add an athlete ");
 
 	}
 
@@ -538,7 +622,8 @@ public class GUI implements UIinterface {
 
 	@Override
 	public void createOlympic(String startDate, String endDate) {
-		JOptionPane.showMessageDialog(null, startDate + "  " + endDate);
+		JOptionPane.showMessageDialog(null, startDate + "  " + endDate, "The dates of olympics",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
@@ -575,9 +660,9 @@ public class GUI implements UIinterface {
 	public void showAllOlimpics(String allOlimpic) {
 		Stage stageAllOlimpic = new Stage();
 		Label lbAllOlimpic = new Label(allOlimpic);
-		ScrollPane allOlimpicScroll  = new ScrollPane(lbAllOlimpic);
-		
-		stageAllOlimpic.setScene(new Scene(allOlimpicScroll,500,400));
+		ScrollPane allOlimpicScroll = new ScrollPane(lbAllOlimpic);
+
+		stageAllOlimpic.setScene(new Scene(allOlimpicScroll, 500, 400));
 		stageAllOlimpic.show();
 
 	}
@@ -585,6 +670,7 @@ public class GUI implements UIinterface {
 	@Override
 	public void getArraySelectAthlete(ArrayList<Athlete> arraySelect, String typeAthlete, String indexRefere,
 			String indexStadium) {
+
 		ArrayList<Athlete> newArr = new ArrayList<Athlete>();
 		for (int i = 0; i < arraySelect.size(); i++) {
 			newArr.add(arraySelect.get(i));
@@ -595,13 +681,9 @@ public class GUI implements UIinterface {
 		VBox vboxSelect = new VBox();
 		Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
 		ListView<Athlete> allAtletes = new ListView<Athlete>();
-		// ObservableList<String> items = (ObservableList<String>) newArr ;
-		// show on the screen
+
 		ObservableList<Athlete> items = FXCollections.observableArrayList(newArr);
 
-		// ObservableList<String> items = FXCollections.observableArrayList("Cricket",
-		// "Chess", "Kabaddy", "Badminton",
-		// "Football", "Golf", "CoCo", "car racing");
 		allAtletes.setItems(items);
 		allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -617,14 +699,20 @@ public class GUI implements UIinterface {
 
 				}
 				for (SystemUIEventListener l : allListeners)
+					try {
 
-					if (typeAthlete.equals(compatitionType.HighJumper.toString())) {
-						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Personal Competition", indexRefere,
-								indexStadium, selectAthletes);
-					} else
-						l.addCompetitionToUIEvent(compatitionType.Runner, "Personal Competition", indexRefere,
-								indexStadium, selectAthletes);
+						if (typeAthlete.equals(compatitionType.HighJumper.toString())) {
+							l.addCompetitionToUIEvent(compatitionType.HighJumper, "Personal Competition", indexRefere,
+									indexStadium, selectAthletes);
+						} else
+							l.addCompetitionToUIEvent(compatitionType.Runner, "Personal Competition", indexRefere,
+									indexStadium, selectAthletes);
+					} catch (InccorentIndex e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (DontSelectAll e1) {
 
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
 			}
 		});
 
@@ -648,10 +736,8 @@ public class GUI implements UIinterface {
 		VBox vboxSelect = new VBox();
 		Label lbIndexAthlete = new Label("choose the athletes or the teams you want(you need to press ctrl  ");
 		ListView<Team> allAtletes = new ListView<Team>();
-		// ObservableList<String> items = (ObservableList<String>) newArr ;
 		ObservableList<Team> items = FXCollections.observableArrayList(newArr);
-		// ("Cricket", "Chess", "Kabaddy", "Badminton", "Football", "Golf", "CoCo", "car
-		// racing");
+
 		allAtletes.setItems(items);
 		allAtletes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -668,12 +754,23 @@ public class GUI implements UIinterface {
 				}
 
 				for (SystemUIEventListener l : allListeners)
-					if (typeTeam.equals(compatitionType.HighJumper.toString())) {
-						l.addCompetitionToUIEvent(compatitionType.HighJumper, "Team Competition", indexRefere,
-								indexStadium, selectTeams);
-					} else
-						l.addCompetitionToUIEvent(compatitionType.Runner, "Team Competition", indexRefere, indexStadium,
-								selectTeams);
+					try {
+						if (indexRefere.equals(null) || indexStadium.equals(null)) {
+							throw new DontSelectAll();
+						}
+						if (typeTeam.equals(compatitionType.HighJumper.toString())) {
+							l.addCompetitionToUIEvent(compatitionType.HighJumper, "Team Competition", indexRefere,
+									indexStadium, selectTeams);
+						} else
+							l.addCompetitionToUIEvent(compatitionType.Runner, "Team Competition", indexRefere,
+									indexStadium, selectTeams);
+					} catch (InccorentIndex e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (DontSelectAll e1) {
+
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+
 			}
 		});
 
