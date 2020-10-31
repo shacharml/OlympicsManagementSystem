@@ -112,7 +112,7 @@ public class Olympics {
 
 	public int findMyCountry(String cuontry) {
 		for (int i = 0; i < allCountrys.size(); i++) {
-			if (allCountrys.get(i).getName().equals(cuontry)) {
+			if (allCountrys.get(i).getName().equalsIgnoreCase(cuontry)) {
 				return i;
 			}
 		}
@@ -129,49 +129,19 @@ public class Olympics {
 
 		if (indexCountry != -1) {
 
-			if (allCountrys.get(indexCountry).getAllTeams().isEmpty()) {
-				// type.equals(AthleteType.both)
-				if (athlete instanceof RunnerAndJumper) {
-					Team teamRun = new Team(country, AthleteType.Runner);
-					teamRun.addAthleteToTeam(athlete);
-					allCountrys.get(indexCountry).getAllTeams().add(teamRun);
-					allCountrys.get(indexCountry).getAllTeams().get(0).sumOfScoresAthlete();
-
-					Team teamJump = new Team(country, AthleteType.HighJumper);
-					teamJump.addAthleteToTeam(athlete);
-					allCountrys.get(indexCountry).getAllTeams().add(teamJump);
-					allCountrys.get(indexCountry).getAllTeams().get(1).sumOfScoresAthlete();
-				} else {
-
-					Team team = new Team(country, type);
-					team.addAthleteToTeam(athlete);
-					allCountrys.get(indexCountry).getAllTeams().add(team);
-					allCountrys.get(indexCountry).getAllTeams().get(0).sumOfScoresAthlete();
-				}
-				return;
-			}
-
-			for (int i = 0; i < allCountrys.get(indexCountry).getAllTeams().size(); i++) {
-				if (type.equals(AthleteType.both)) {
-
-					if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
-							.equals(AthleteType.HighJumper.toString())) {
-						allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
-						allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
-					}
-					if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
-							.equals(AthleteType.Runner.toString())) {
-						allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
-						allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
-					}
-					return;
-				}
-
-				else if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().toString()
-						.equals(type.toString())) {
+			if (type.equals(AthleteType.both)) {
+				for (int i = 0; i < allCountrys.get(indexCountry).getAllTeams().size(); i++) {
 					allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
 					allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
-					return;
+				}
+
+			} else {
+				for (int i = 0; i < allCountrys.get(indexCountry).getAllTeams().size(); i++) {
+					if (allCountrys.get(indexCountry).getAllTeams().get(i).getType().equals(type)) {
+						allCountrys.get(indexCountry).getAllTeams().get(i).addAthleteToTeam(athlete);
+						allCountrys.get(indexCountry).getAllTeams().get(i).sumOfScoresAthlete();
+						return;
+					}
 				}
 			}
 
@@ -305,7 +275,12 @@ public class Olympics {
 
 		if (allCountrys.isEmpty()) {
 			Country country2 = new Country(country);
+			Team teamRun = new Team(country, AthleteType.Runner);
+			Team teamJump = new Team(country, AthleteType.HighJumper);
+			country2.getAllTeams().add(teamJump);
+			country2.getAllTeams().add(teamRun);
 			allCountrys.add(country2);
+
 			return;
 		}
 
@@ -348,7 +323,5 @@ public class Olympics {
 	public ArrayList<Athlete> getAllAthletes() {
 		return allAthletes;
 	}
-	
-	
-	
+
 }

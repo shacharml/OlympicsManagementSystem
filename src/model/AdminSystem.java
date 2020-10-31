@@ -38,6 +38,7 @@ public class AdminSystem {
 		olympics.serchAndAddCountryByName(country);
 
 		Athlete athlete;
+		
 		if (type.equalsIgnoreCase(AthleteType.HighJumper.toString())) {
 			athlete = new HighJumper(name, country, AthleteType.HighJumper, score);
 		} else if (type.equalsIgnoreCase(AthleteType.Runner.toString())) {
