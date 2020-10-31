@@ -14,11 +14,15 @@ Olimpic :
 1)Tedi, Location: Jerusalem, Num of Seats: 6688
 
 -------All the competition :-------
-1)Personal competition : type: Runner, refere: Yosi, אנדורה, Runner, stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
+1)Personal competition : type: Runner
+Refere: Yosi, אנדורה, Runner
+Stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
 anet, איחוד האמירויות הערביות, 3, Runner
 shachar, אנדורה, 1, Runner
 
-2)Team competition : type: Runner, refere: Yosi, אנדורה, Runner, stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
+2)Team competition : type: Runner
+Refere: Yosi, אנדורה, Runner
+Stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
 איחוד האמירויות הערביותTeam - Runner:
 1) anet, איחוד האמירויות הערביות, 3, Runner
 Score of all team : 3

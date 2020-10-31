@@ -31,7 +31,7 @@ public abstract class Competition {
 
 	@Override
 	public String toString() {
-		return "type: " + type + ", refere: " + refere + ", stadium: " + stadium + "\n";
+		return "type: " + type + "\nRefere: " + refere + "\nStadium: " + stadium + "\n";
 	}
 
 	public compatitionType getType() {
