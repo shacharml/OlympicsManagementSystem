@@ -4,6 +4,9 @@ import listeners.SystemEventListener;
 import model.Athlete.AthleteType;
 import model.Competition.compatitionType;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -26,7 +29,6 @@ public class AdminSystem {
 	}
 
 	public void createOlypics(LocalDate startDate, LocalDate endDate) throws NotValideDate {
-		// TODO need to check if endDate more late then StartDate mabye Excepcion
 		olympics = new Olympics(startDate.toString(), endDate.toString());
 		fireCreateOlympicEvent(startDate.toString(), endDate.toString());
 	}
@@ -185,7 +187,7 @@ public class AdminSystem {
 			l.RemoveRefereToModelEvent();
 	}
 
-	public void showAllTheWinners() {
+	public void showAllTheWinners() throws FileNotFoundException {
 
 		ArrayList<String> winnersCountrys = olympics.treeCountrysWinning();
 
@@ -193,7 +195,29 @@ public class AdminSystem {
 		for (int i = 0; i < winnersCountrys.size(); i++) {
 			theWinners += "Place #" + (i + 1) + ": " + winnersCountrys.get(i) + "\n";
 		}
+		saveViewFile();
 		fireShowAllTheWinnersEvent(theWinners);
+	}
+
+	private void saveViewFile() throws FileNotFoundException{
+		File allOlympics = new File("AllOlympics"+olympics.getStartDate() +"__"+ olympics.getEndDate()+".txt");
+		PrintWriter pw = new PrintWriter(allOlympics);
+		
+		pw.println(olympics.showAllOlimpic());
+		pw.println("\n\nThe Winners are: \n");
+		pw.print(getAllWinners());
+		pw.close();
+		
+	}
+
+	private String getAllWinners() {
+		ArrayList<String> winnersCountrys = olympics.treeCountrysWinning();
+		
+		String theWinners ="";
+		for (int i = 0; i < winnersCountrys.size(); i++) {
+			theWinners+= "Place #"+(i+1)+ " : "+ winnersCountrys.get(i)+"\n";
+		}
+		return theWinners;
 	}
 
 	private void fireShowAllTheWinnersEvent(String theWinners) {

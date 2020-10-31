@@ -37,7 +37,11 @@ public class TeamCompetition extends Competition {// <T extends Athlete> extends
 	public ArrayList<String> treeWinnersCountry() {
 		ArrayList<String> treeWinnerCountry = new ArrayList<String>(3);
 		bubbleSort();
-		for (int i = 0; i < 3; i++) {
+		int sizeOfWinners = 3;
+		if (allTeams.size()<3) {
+			sizeOfWinners = allTeams.size();
+		}
+		for (int i = 0; i < sizeOfWinners; i++) {
 			treeWinnerCountry.add(allTeams.get(i).getCountry());
 
 		}

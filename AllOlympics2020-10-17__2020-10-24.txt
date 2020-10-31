@@ -1,0 +1,65 @@
+Olimpic : 
+ Start Date : 2020-10-17
+ Ending Date : 2020-10-24
+
+-------All the Athletes :-------
+1)shachar, אנדורה, 1, Runner
+2)anet, איחוד האמירויות הערביות, 3, Runner
+3)sagi, אפגניסטן, 6, HighJumper
+
+-------All the Referes :-------
+1)Yosi, אנדורה, Runner
+
+-------All the Stadiums :-------
+1)Tedi, Location: Jerusalem, Num of Seats: 6688
+
+-------All the competition :-------
+1)Personal competition : type: Runner, refere: Yosi, אנדורה, Runner, stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
+anet, איחוד האמירויות הערביות, 3, Runner
+shachar, אנדורה, 1, Runner
+
+2)Team competition : type: Runner, refere: Yosi, אנדורה, Runner, stadium: Tedi, Location: Jerusalem, Num of Seats: 6688
+איחוד האמירויות הערביותTeam - Runner:
+1) anet, איחוד האמירויות הערביות, 3, Runner
+Score of all team : 3
+אנדורהTeam - Runner:
+1) shachar, אנדורה, 1, Runner
+Score of all team : 1
+
+
+-------All the countrys :-------
+1)אנדורה: 
+Number of meadals : 2
+1) אנדורהTeam - HighJumper:
+Score of all team : 0
+2) אנדורהTeam - Runner:
+1) shachar, אנדורה, 1, Runner
+Score of all team : 1
+
+
+2)איחוד האמירויות הערביות: 
+Number of meadals : 2
+1) איחוד האמירויות הערביותTeam - HighJumper:
+Score of all team : 0
+2) איחוד האמירויות הערביותTeam - Runner:
+1) anet, איחוד האמירויות הערביות, 3, Runner
+Score of all team : 3
+
+
+3)אפגניסטן: 
+Number of meadals : 0
+1) אפגניסטןTeam - HighJumper:
+1) sagi, אפגניסטן, 6, HighJumper
+Score of all team : 6
+2) אפגניסטןTeam - Runner:
+Score of all team : 0
+
+
+
+
+
+The Winners are: 
+
+Place #1 : אנדורה
+Place #2 : איחוד האמירויות הערביות
+Place #3 : אפגניסטן

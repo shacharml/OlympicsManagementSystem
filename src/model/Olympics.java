@@ -158,7 +158,12 @@ public class Olympics {
 		bubbleSortByMedals();
 
 		ArrayList<String> nameOfTheWinners = new ArrayList<String>();
-		for (int i = 0; i < 3; i++) {
+		int newSize = 3;
+		if (allCountrys.size()<3) {
+			newSize = allCountrys.size();
+		}
+		
+		for (int i = 0; i < newSize; i++) {
 			nameOfTheWinners.add(allCountrys.get(i).getName());
 		}
 		return nameOfTheWinners;
@@ -216,20 +221,19 @@ public class Olympics {
 
 		for (int i = 0; i < allComptitions.size(); i++) {
 			if (allComptitions.get(i) instanceof PersonalCompetition) {
-				str += (i + 1) + ")" + ((PersonalCompetition) allComptitions.get(i)).toString();
+				str += (i + 1) + ")" + ((PersonalCompetition) allComptitions.get(i)).toString()+"\n";
 			} else
-				str += (i + 1) + ")" + ((TeamCompetition) allComptitions.get(i)).toString();
+				str += (i + 1) + ")" + ((TeamCompetition) allComptitions.get(i)).toString()+"\n";
 		}
 		return str;
 	}
 
 	public String showAllOlimpic() {
-		String AllOlimpic = "Olimpic : \n Start Date : " + startDate + "\n Ending Date : " + endDate + "\n";
-
-		AllOlimpic += showAllRefereAndStadiums();
-		AllOlimpic += "\n\n" + showAllCopetition();
-		AllOlimpic += "\n\n" + showAllAthletes();
-		AllOlimpic += "\n\n" + showAllCountrys();
+		String AllOlimpic = "Olimpic : \n Start Date : " + startDate + "\n Ending Date : " + endDate + "\n\n";
+		AllOlimpic += showAllAthletes();
+		AllOlimpic += "\n" + showAllRefereAndStadiums();
+		AllOlimpic += "\n" + showAllCopetition();
+		AllOlimpic += "\n" + showAllCountrys();
 		return AllOlimpic;
 	}
 

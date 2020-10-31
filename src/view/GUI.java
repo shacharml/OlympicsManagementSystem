@@ -563,7 +563,14 @@ public class GUI implements UIinterface {
 			@Override
 			public void handle(ActionEvent action) {
 				for (SystemUIEventListener l : allListeners)
-					l.showAllTheWinnersUIEvent();
+					try {
+						l.showAllTheWinnersUIEvent();
+					} catch (FileNotFoundException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "File not found",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				theStage.close();
+
 			}
 		});
 
@@ -729,7 +736,10 @@ public class GUI implements UIinterface {
 
 		ArrayList<Team> newArr = new ArrayList<Team>();
 		for (int i = 0; i < arraySelect.size(); i++) {
-			newArr.add(arraySelect.get(i));
+			if (arraySelect.get(i).getAllAthletes().isEmpty()) {
+				continue;
+			} else
+				newArr.add(arraySelect.get(i));
 		}
 
 		Stage stAllTeamSelect = new Stage();

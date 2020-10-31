@@ -34,7 +34,12 @@ public class PersonalCompetition extends Competition {// <T extends Athlete> ext
 			}
 		}
 
-		for (int k = 0; k < 3; k++) {
+		int sizeOfWinners = 3;
+		if (allAthletes.size() < 3) {
+			sizeOfWinners = allAthletes.size();
+		}
+
+		for (int k = 0; k < sizeOfWinners; k++) {
 			nameOfWinningCountrys.add(allAthletes.get(k).getCountry());
 		}
 		return nameOfWinningCountrys;

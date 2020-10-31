@@ -1,5 +1,6 @@
 package listeners;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public interface SystemUIEventListener {
 
 	void addRefereToUIEvent(String name, String countery, String typeOfJuging) throws DontSelectAll;
 
-	void showAllTheWinnersUIEvent();
+	void showAllTheWinnersUIEvent() throws FileNotFoundException;
 
 	void RemoveAthleteToUIEvent(int indexAthlete) throws InccorentIndex;
 

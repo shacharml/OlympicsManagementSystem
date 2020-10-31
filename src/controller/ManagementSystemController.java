@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class ManagementSystemController implements SystemEventListener, SystemUI
 	}
 
 	@Override
-	public void showAllTheWinnersUIEvent() {
+	public void showAllTheWinnersUIEvent() throws FileNotFoundException {
 		adminSystem.showAllTheWinners();
 
 	}
